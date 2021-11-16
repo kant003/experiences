@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, query, collection, getDocs, addDoc,setDoc, doc, deleteDoc } from 'firebase/firestore/lite';
 
-// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -14,8 +13,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
-
 
 const auth = getAuth();
 
@@ -30,46 +27,15 @@ const doSignOut = () => signOut(auth);
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = user.uid;
     console.log('logueado:',uid)
     localStorage.setItem('authUser', JSON.stringify(user));
     
-    // ...
 } else {
-    // User is signed out
-    // ...
     console.log('deloguado sin user')
     localStorage.removeItem('authUser');
   }
 });
-
-/*
-function doSignInWithGoogle() {
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            console.log('ok login:',token,user)
-            // ...
-        }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
-            console.log('fallo en login:',errorMessage)
-        });
-
-}
-*/
 
 async function setUser(user) {
     console.log(user)
@@ -96,10 +62,7 @@ async function getExperiences() {
 }
 
 async function getExperiencesSnapshot() {
-
-    const result = await getDocs(query(collection(db, 'experiences')));
-
-    return result;
+    return await getDocs(query(collection(db, 'experiences')));
 }
 
 async function saveExperience(experience) {
@@ -109,10 +72,7 @@ async function saveExperience(experience) {
 }
 
 async function removeExperience(id) {
-   
     return await deleteDoc(doc(db, "experiences", id));
-
 }
-
 
 export { getExperiences, getExperiencesSnapshot, saveExperience, removeExperience, doSignInWithGoogle,setUser, doSignOut}
