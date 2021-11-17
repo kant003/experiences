@@ -1,10 +1,10 @@
 ## Repo Github
 
-https://github.com/kant003/experiences
+https://github.com/kant003/kenko
 
 ## Url deploy
 
-https://experienciasoperacion.web.app
+https://kenko.web.app
 
 ## Create a .env file for firebase configure
 
