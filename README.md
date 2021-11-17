@@ -10,7 +10,7 @@ https://kenko.web.app
 
 Create a file .env on root 
 
-'''
+```
 REACT_APP_API_KEY=xxx
 
 REACT_APP_AUTH_DOMAIN=xxx
@@ -27,7 +27,7 @@ REACT_APP_ID=xxx
 
 REACT_APP_CONFIRMATION_EMAIL_REDIRECT=http://localhost:3000
 
-'''
+```
 
 ## Start server
 
