@@ -4,7 +4,7 @@ function ExperiencesPage() {
 
   return (
     <>
-      <h1>Lista de experiencias</h1>
+      <h1 className="title">Lista de experiencias</h1>
       <Experiences />
     </>
   );

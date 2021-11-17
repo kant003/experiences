@@ -9,6 +9,7 @@ import Navigation from './components/Navigation';
 import ExperiencesPage from './pages/ExperiencesPage';
 import FormularioPage from './pages/FormularioPage';
 import SignInPage from './pages/SignInPage';
+import 'bulma/css/bulma.min.css';
 
 
 function App() {

@@ -29,6 +29,12 @@ REACT_APP_CONFIRMATION_EMAIL_REDIRECT=http://localhost:3000
 
 ```
 
+
+## Install
+
+### `npm install`
+
+
 ## Start server
 
 ### `npm start`
