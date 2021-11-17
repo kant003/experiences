@@ -4,7 +4,7 @@ https://github.com/kant003/kenko
 
 ## Url deploy
 
-https://kenko.web.app
+https://kenko--app.web.app/
 
 ## Create a .env file for firebase configure
 
@@ -49,4 +49,14 @@ REACT_APP_CONFIRMATION_EMAIL_REDIRECT=http://localhost:3000
 ### `npm install -g firebase-tools`
 ### `firebase login`
 ### `firebase init`
+
+
+? What do you want to use as your public directory? build
+
+? Configure as a single-page app (rewrite all urls to /index.html)? Yes
+
+? Set up automatic builds and deploys with GitHub? No
+
+? File build/index.html already exists. Overwrite? No
+
 ### `firebase deploy`
