@@ -13,25 +13,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-
 const provider = new GoogleAuthProvider();
-
 const doSignInWithGoogle = () => signInWithPopup(auth, provider)
-
 const doSignOut = () => signOut(auth);
-
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        const uid = user.uid;
-        console.log('logueado:', uid)
+        //const uid = user.uid;
         localStorage.setItem('authUser', JSON.stringify(user));
-
     } else {
-        console.log('deloguado sin user')
         localStorage.removeItem('authUser');
     }
 });
-
 
 export { app, doSignInWithGoogle, doSignOut }

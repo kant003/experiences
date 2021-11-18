@@ -8,3 +8,7 @@ body{
     margin: 0px;
     align-items: center;
 }
+
+.card{
+    margin-bottom: 1rem;
+}

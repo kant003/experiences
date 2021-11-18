@@ -1,21 +1,25 @@
-import { getFirestore, query, collection, getDocs, setDoc, addDoc, doc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, query, collection, getDocs, getDoc, setDoc, addDoc, doc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 import {app} from './auth';
 
 const EXPERIENCES = 'experiences'
+const USERS = 'users'
 
 const db = getFirestore(app);
 
-
 // TODO No usado
-async function getExperiences() {
-  const citiesCol = collection(db, 'experiences');
-  const citySnapshot = await getDocs(citiesCol);
+const getExperiencesSnapshot = async ()  => await getDocs(query(collection(db, EXPERIENCES)))
 
-  const cityList = citySnapshot.docs.map(doc => {
-    return { ...doc.data(), id: doc.id }
-  });
-  return cityList;
-}
+const saveExperience = async experience => await addDoc(collection(db, EXPERIENCES), { ...experience,  createdAt: serverTimestamp() })
+
+const removeExperience = async id => await deleteDoc(doc(db, EXPERIENCES, id) )
+
+const getExperiencesCollection = () => collection(db, EXPERIENCES)
+
+const getUsersCollection = () => collection(db, USERS)
+
+const getUserRef = (uid) => doc(db, "users", uid);
+
+const getUser = async (userRef)  => await getDoc(userRef)
 
 async function setUser(user) {
   await setDoc(doc(db, "users", user.uid), {
@@ -30,13 +34,6 @@ async function setUser(user) {
 
 }
 
-// TODO No usado
-const getExperiencesSnapshot = async ()  => await getDocs(query(collection(db, EXPERIENCES)))
+export { getUsersCollection, getUser, getUserRef, getExperiencesCollection, getExperiencesSnapshot, saveExperience, removeExperience, setUser }
 
-const saveExperience = async experience => await addDoc(collection(db, EXPERIENCES), { ...experience })
 
-const removeExperience = async id => await deleteDoc(doc(db, EXPERIENCES, id) )
-
-const getExperiencesCollection = () => collection(db, EXPERIENCES)
-
-export { getExperiencesCollection, getExperiences, getExperiencesSnapshot, saveExperience, removeExperience, setUser }
