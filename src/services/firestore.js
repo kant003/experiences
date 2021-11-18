@@ -1,10 +1,12 @@
-import { getFirestore, query, collection, getDocs, getDoc, setDoc, addDoc, doc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, query, collection, getDocs, getDoc, setDoc, addDoc, doc, deleteDoc, serverTimestamp, where,orderBy,limit } from 'firebase/firestore';
 import {app} from './auth';
 
 const EXPERIENCES = 'experiences'
 const USERS = 'users'
 
 const db = getFirestore(app);
+
+// Experiences
 
 // TODO No usado
 const getExperiencesSnapshot = async ()  => await getDocs(query(collection(db, EXPERIENCES)))
@@ -13,9 +15,13 @@ const saveExperience = async experience => await addDoc(collection(db, EXPERIENC
 
 const removeExperience = async id => await deleteDoc(doc(db, EXPERIENCES, id) )
 
-const getExperiencesCollection = () => collection(db, EXPERIENCES)
+const getAllExperiences = () => query(collection(db, EXPERIENCES), orderBy("createdAt", "desc"), limit(100))
 
-const getUsersCollection = () => collection(db, USERS)
+const getAllExperiencesByUid = (uid) => query(collection(db, EXPERIENCES), where("userRef", "==", getUserRef(uid), orderBy("createdAt", "desc"), limit(100)))
+
+// Users
+
+const getAllUsers = () => collection(db, USERS)
 
 const getUserRef = (uid) => doc(db, "users", uid);
 
@@ -29,11 +35,12 @@ async function setUser(user) {
       displayName: user.displayName,
       email: user.email,
       uid: user.uid,
+      createdAt: serverTimestamp(), //TODO: esto cambia cada vez que se loguea, corregir
       roles: {},
   });
 
 }
 
-export { getUsersCollection, getUser, getUserRef, getExperiencesCollection, getExperiencesSnapshot, saveExperience, removeExperience, setUser }
+export { getAllUsers, getUser, getUserRef, getAllExperiencesByUid, getAllExperiences, getExperiencesSnapshot, saveExperience, removeExperience, setUser }
 
 

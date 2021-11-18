@@ -21,6 +21,11 @@ const Navigation = () => {
 
   }, [])
 
+  const getUid = () => { 
+    if(user) return user.uid 
+    return ''
+  }
+
   return (
     <>
 
@@ -41,9 +46,11 @@ const Navigation = () => {
           <div className="navbar-start">
             <Link className="navbar-item" to={'/'}>Home</Link>
 
-            <Link className="navbar-item" to={'experiences'}>Experiencias</Link>
-            <Link className="navbar-item" to={'formulario'}>Formulario inserción</Link>
+            <Link className="navbar-item" to={'experiences'}>Exper</Link>
+            <Link className="navbar-item" to={'experiences/'+getUid()}>Tus Exper</Link>
+            <Link className="navbar-item" to={'formulario'}>Add exper</Link>
             <Link className="navbar-item" to={'users'}>Users</Link>
+            <Link className="navbar-item" to={'users/'+getUid()}>Perfil</Link>
 
 
           </div>
@@ -53,7 +60,6 @@ const Navigation = () => {
               <div className="buttons">
 
                 {user && <a href=" " onClick={() => doSignOut()} className="navbar-item">Logout</a>}
-
                 {user && user.email}
                 {!user && <Link visible="false" to={'SignIn'}>Login</Link>}
               </div>

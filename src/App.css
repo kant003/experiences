@@ -1,6 +1,3 @@
-.form{
-
-}
 
 body{
     display: flex;
@@ -11,4 +8,10 @@ body{
 
 .card{
     margin-bottom: 1rem;
+}
+
+.card>.card-content>.content>.buttons{
+    display: flex;
+    justify-content: flex-end;
+
 }
