@@ -6,7 +6,7 @@ const USERS = 'users'
 //const FOLLOWERS = 'followers'
 //const FOLLOWING = 'following'
 const CALIFICATIONS = 'califications'
-
+const COMMENTS = 'comments'
 const db = getFirestore(app);
 
 // Experiences
@@ -18,9 +18,17 @@ const saveExperience = async experience => await addDoc(collection(db, EXPERIENC
 
 const removeExperience = async id => await deleteDoc(doc(db, EXPERIENCES, id) )
 
-const getAllExperiences = (uid) => query(collection(db, EXPERIENCES), where("userRef", "!=", getUserRef(uid), orderBy("createdAt", "desc"), limit(100)))
+const getExperience = async id  => await getDoc(doc(db, EXPERIENCES, id))
 
-const getAllExperiencesByUid = (uid) => query(collection(db, EXPERIENCES), where("userRef", "==", getUserRef(uid), orderBy("createdAt", "desc"), limit(100)))
+
+const getAllExperiences = uid => query(collection(db, EXPERIENCES), where("userRef", "!=", getUserRef(uid), orderBy("createdAt", "desc"), limit(100)))
+
+const getAllExperiencesByUid = uid => query(collection(db, EXPERIENCES), where("userRef", "==", getUserRef(uid), orderBy("createdAt", "desc"), limit(100)))
+
+// Commnets
+const getComentsByExperienceId = idExp => query(collection(db, EXPERIENCES, idExp, COMMENTS), orderBy("createdAt", "desc"), limit(100))
+const saveComment = async (idExp, text) => await addDoc(collection(db, EXPERIENCES, idExp, COMMENTS), { text,  createdAt: serverTimestamp() })
+const removeComment = async (idExp, idComment) => await deleteDoc(doc(db, EXPERIENCES, idExp, COMMENTS, idComment) )
 
 // califications
 
@@ -31,9 +39,9 @@ const getCalification  = async (id, uid) => await getDoc(doc(db, CALIFICATIONS, 
 
 const getAllUsers = () => collection(db, USERS)
 
-const getUserRef = (uid) => doc(db, USERS, uid);
+const getUserRef = uid => doc(db, USERS, uid);
 
-const getUser = async (userRef)  => await getDoc(userRef)
+const getUser = async userRef  => await getDoc(userRef)
 
 
 async function setUser(user) {
@@ -65,6 +73,6 @@ const unMentor = async (uid, userRef) => await updateDoc(doc(db, USERS, uid), { 
 
 //Followin
 
-export { getCalification, addCalification, unMentor, follow, unFollow, followingUser, followUser, getAllUsers, getUser, getUserRef, getAllExperiencesByUid, getAllExperiences, getExperiencesSnapshot, saveExperience, removeExperience, setUser }
+export { removeComment, saveComment, getComentsByExperienceId, getCalification, addCalification, unMentor, follow, unFollow, followingUser, followUser, getAllUsers, getUser, getUserRef, getAllExperiencesByUid, getAllExperiences, getExperience, getExperiencesSnapshot, saveExperience, removeExperience, setUser }
 
 

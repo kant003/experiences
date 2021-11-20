@@ -72,9 +72,10 @@ export default function Experience({ id, title, text, type, tags, createdAt, use
                     <br />
                     <div className="tags">{tagList()}</div>
 
-                    <Stars id={id} uid={authUser.uid}></Stars>
+                    {id && <Stars id={id} uid={authUser.uid}> </Stars> }
 
                     <div className="buttons">
+                        <Link className="button is-link is-light" to={'/experience/' + id}>Ver</Link>
                         <Link className="button is-link is-light" to={'/formulario/' + id}>Editar</Link>
                         <button className="button is-link is-light" onClick={e => removeExperience(id)}>Eliminar</button>
                     </div>

@@ -15,6 +15,7 @@ import PerfilPage from './pages/PerfilPage';
 
 
 import 'bulma/css/bulma.min.css';
+import ExperieneDetail from './pages/ExperienceDetail';
 
 function App() {
 
@@ -42,6 +43,7 @@ function App() {
           {/* <Route path="/" element={<Navigate to={'/home/' + authUser.uid} />} /> */}
           <Route path="/" element={<SignInPage />} />
           <Route path="experiences" element={<ExperiencesPage />} />
+          <Route path="experience/:id" element={<ExperieneDetail />} />
           <Route path="experiences/:uid" element={<YourExperiencesPage />} />
           <Route path="formulario" element={<FormularioPage />} />
           <Route path="formulario/:id" element={<FormularioPage />} />

@@ -10,6 +10,6 @@ export default function UserCardSimple({ uid, active }) {
     }, [uid])
 
     return (
-       <div>- {user&&user.uid} {user && user.displayName} {user && user.email}</div>
+       <div>{user && user.displayName} {user && user.email}</div>
     )
 }

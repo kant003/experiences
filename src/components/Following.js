@@ -34,9 +34,7 @@ function Following({ uid, userMap }) {
         userMap!=null && Object.entries(userMap).sort().map(([keyy, value]) =>
         <div key={keyy+uid} style={divStyle}>
                 <UserCardSimple key={keyy} uid={keyy} active={!!value} />
-                {keyy}
                 {value ? <div>Ya es tu mentor!</div> : <div>Pendiente de contestación</div>}
-
                 <button onClick={()=>onUnFollow(keyy)}>Dejar de seguir</button>
             </div>
         )

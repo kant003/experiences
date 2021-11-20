@@ -21,7 +21,10 @@ function Experiences({uid}) {
 
     return (
         experiencesList.map((exp) =>
+        <div>
             <Experience key={exp.id} title={exp.title} text={exp.text} type={exp.type} tags={exp.tags} createdAt={exp.createdAt} id={exp.id} userRef={exp.userRef} />
+            
+        </div>
         )
     );
 }
