@@ -8,9 +8,11 @@ export default function Experience({ id, title, text, type, tags, createdAt, use
     const [user, setUser] = useState(null)
     const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
 
+
     useEffect(() => {
+        console.log('cam')
         getUser(userRef).then(u => setUser(u.data()))
-    }, [userRef, user && user.followers])
+    }, [userRef])
 
     const tagList = () => tags.map(tag =>
         <span key={id + tag} className="tag">#{tag}</span>
@@ -20,6 +22,8 @@ export default function Experience({ id, title, text, type, tags, createdAt, use
         try {
             await follow(authUser.uid,keyy)
             await followUser(keyy, authUser.uid,false)
+            getUser(userRef).then(u => setUser(u.data())) //TODO: no es necesario
+
             console.log('followed',authUser.uid,keyy);
         } catch (error) {
             console.error('error:',error)
@@ -30,6 +34,7 @@ export default function Experience({ id, title, text, type, tags, createdAt, use
         try {
             await unFollow(authUser.uid,keyy)
             await unMentor(keyy,authUser.uid)
+            getUser(userRef).then(u => setUser(u.data())) //TODO: no es necesario
 
             console.log('desuscrito',authUser.uid,keyy);
         } catch (error) {
