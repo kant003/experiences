@@ -21,6 +21,7 @@ export default function User({ displayName, email, photoURL, uid, emailVerified,
                     <div>uid: {uid}</div>
                     <div>emailVerified: {emailVerified}</div>
                     <div>isAnonymous: {isAnonymous}</div>
+
                 </div>
             </div>
         </div>

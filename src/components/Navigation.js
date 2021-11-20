@@ -1,25 +1,27 @@
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { doSignOut } from "../services/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Navigation = () => {
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')))
+  let navigate = useNavigate();
 
   useEffect(() => {
-
-    onAuthStateChanged(getAuth(), (user) => {
+    onAuthStateChanged(getAuth(), user => {
       if (user) {
         //const uid = user.uid;
         setUser(user)
       } else {
         console.log('desloguado en nav')
         setUser(null)
+        navigate('SignIn');
+
       }
     });
 
-  }, [])
+  }, [navigate])
 
   const getUid = () => { 
     if(user) return user.uid 
@@ -44,13 +46,13 @@ const Navigation = () => {
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            <Link className="navbar-item" to={'/'}>Home</Link>
+            {user && <Link className="navbar-item" to={'/home/'+user.uid}>Home</Link> }
 
-            <Link className="navbar-item" to={'experiences'}>Exper</Link>
-            <Link className="navbar-item" to={'experiences/'+getUid()}>Tus Exper</Link>
-            <Link className="navbar-item" to={'formulario'}>Add exper</Link>
-            <Link className="navbar-item" to={'users'}>Users</Link>
-            <Link className="navbar-item" to={'users/'+getUid()}>Perfil</Link>
+            {user && <Link className="navbar-item" to={'experiences'}>Exper</Link> }
+            {user && <Link className="navbar-item" to={'experiences/'+getUid()}>Tus Exper</Link> }
+            {user && <Link className="navbar-item" to={'formulario'}>Add exper</Link> }
+            {user && <Link className="navbar-item" to={'users'}>Users</Link> }
+            {user && <Link className="navbar-item" to={'users/'+getUid()}>Perfil</Link> }
 
 
           </div>

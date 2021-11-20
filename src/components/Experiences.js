@@ -7,15 +7,16 @@ import { onSnapshot } from "firebase/firestore";
 function Experiences({uid}) {
 
     const [experiencesList, setExperiencesList] = useState([])
+    const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
 
 
     useEffect(() => {
-        const refCollection = uid?getAllExperiencesByUid(uid):getAllExperiences()
+        const refCollection = uid?getAllExperiencesByUid(uid):getAllExperiences(authUser.uid)
         const unsubscribe = onSnapshot(refCollection,
             snapshot => setExperiencesList(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))),
             error => console.log('error al cargar los datos', error));
         return () => unsubscribe()
-    }, [uid])
+    }, [uid, authUser.uid])
 
 
     return (
