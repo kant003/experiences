@@ -1,5 +1,5 @@
 import UserCardSimple from './UserCardSimple';
-import { unFollow ,unMentor} from '../services/firestore';
+import { unFollow ,unMentor} from '../services/usersFirestore';
 
 const divStyle = {
     display:'flex',

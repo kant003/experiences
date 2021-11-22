@@ -1,49 +1,56 @@
-import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
-import { getUser, getUserRef } from "../services/firestore";
+import { getUserRef} from "../services/experiencesFirestore";
+import { getUser } from "../services/usersFirestore";
 import Followers from '../components/Followers';
 import Following from '../components/Following';
 import { onSnapshot } from '@firebase/firestore';
+import Experiences from '../components/Experiences';
+import Search from '../components/Search';
+import {useExperiences} from '../hooks/useExperiences';
+import { useNavigate } from "react-router";
 
 function LandingPage() {
   const [user, setUser] = useState(null)
-  const { uid } = useParams();
+  const [keyword] = useState('')
+  //const { uid } = useParams();
+  const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
+  const {loading, experiences} = useExperiences({keyword, uid:authUser.uid})
+  let navigate = useNavigate();
 
   useEffect(() => {
-    console.log(uid)
-    getUser(getUserRef(uid)).then(u => {
+    console.log(keyword)
+    console.log(authUser.uid)
+    getUser(authUser.uid).then(u => {
       setUser(u.data())
     })
 
-    const unsub = onSnapshot(getUserRef(uid), (u) => {
+    const unsub = onSnapshot(getUserRef(authUser.uid), (u) => {
       setUser(u.data())
     });
     return () => unsub();
-  }, [uid])
+  }, [keyword, authUser.uid])
 
+  const handleSubmit = ({keyword}) => {
+    navigate(`/experiences/${keyword}`)
+
+    console.log('desde padre',keyword)
+}
 
   return (
     <>
       <div className="columns is-variable bd-klmn-columns is-0">
         <div className="column is-9">
           <h1 className="title">Bienvenido/a</h1>
-
-          <img src={user && user.photoURL} alt="user" />
-          <div>UID: {user && user.uid}</div>
-          <div>DisplayName: {user && user.displayName}</div>
-          <div>Email: {user && user.email}</div>
-          <div>Tiene el email verificado: {user && user.emailVerified}</div>
-          <div>Es anonimo: {user && user.isAnonymous}</div>
-          <div>Creado en: {user && user.createdAt && user.createdAt.toDate().toDateString()}</div>
-          <div>Foto: {user && user.photoURL}</div>
-          <div>Cartera NFT: XXX</div>
+          <h2>Encuenta personas con la misma enfermedad que tu</h2>
+          <Search onSubmit={handleSubmit}/>
+          {loading ? <div>Cargando</div> : <Experiences experiences={experiences} />}
 
         </div>
         <div className="column is-3">
           <h2 className="title">Seguidores:</h2>
-          <Followers uid={uid} userMap={user && user.followers}></Followers>
+          <Followers uid={authUser.uid} userMap={user && user.followers}></Followers>
           <h2 className="title">Siguiendo:</h2>
-          <Following uid={uid} userMap={user && user.following}></Following>
+          <Following uid={authUser.uid} userMap={user && user.following}></Following>
         </div>
       </div>
     </>

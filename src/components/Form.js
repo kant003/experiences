@@ -1,4 +1,4 @@
-import { saveExperience, getUserRef } from "../services/firestore";
+import { saveExperience, getUserRef } from "../services/experiencesFirestore";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 

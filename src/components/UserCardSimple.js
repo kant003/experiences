@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { getUser, getUserRef } from "../services/firestore";
+import { getUser } from "../services/usersFirestore";
 
 export default function UserCardSimple({ uid, active }) {
 
     const [user, setUser] = useState(null)
 
     useEffect(() => {
-        getUser(getUserRef(uid)).then(user => setUser(user.data()))
+        getUser(uid).then(user => setUser(user.data()))
     }, [uid])
 
     return (

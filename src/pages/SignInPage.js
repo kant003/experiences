@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { doSignInWithGoogle } from "../services/auth";
-import { setUser } from "../services/firestore";
+import { setUser } from "../services/usersFirestore";
 
 const SignInPage = () => (
   <div>

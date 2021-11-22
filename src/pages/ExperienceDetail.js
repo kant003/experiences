@@ -1,15 +1,19 @@
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
-import { getExperience } from "../services/firestore";
+import { getExperience } from "../services/experiencesFirestore";
 import Experience from '../components/Experience';
 import Comments from '../components/Commnets';
 
 function ExperieneDetail() {
-  const [experince, setExperience] = useState(null)
+  const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
+  const [experience, setExperience] = useState(null)
   const { id } = useParams();
 
   useEffect(() => {
-    getExperience(id).then(exp => setExperience(exp.data()))
+
+    getExperience(id).then(exp => {
+      setExperience({ ...exp.data(), id: exp.id })
+    })
 
     /*console.log(uid)
     getUser(getUserRef(uid)).then(u => {
@@ -25,10 +29,9 @@ function ExperieneDetail() {
 
   return (
     <>
-      <div>ok {id} {experince && experince.title} </div>
-      {experince && <Experience title={experince.title} text={experince.text} type={experince.type} tags={experince.tags} createdAt={experince.createdAt} id={experince.id} userRef={experince.userRef} />  }
+      {experience && <Experience experience={experience} />}
       <div>Comentarios:</div>
-      {experince && <Comments idExp={id} /> }
+      {experience && <Comments idExp={id} authUser={authUser} />}
     </>
   );
 }

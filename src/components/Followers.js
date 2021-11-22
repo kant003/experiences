@@ -1,4 +1,4 @@
-import { followUser, followingUser } from '../services/firestore';
+import { followUser, followingUser } from '../services/usersFirestore';
 import UserCardSimple from './UserCardSimple';
 
 const divStyle = {

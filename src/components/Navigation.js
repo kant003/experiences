@@ -42,16 +42,20 @@ const Navigation = () => {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
+            {/* {user && <Link className="navbar-item" to={'experiences'}>Exper</Link> }
+            {user && <Link className="navbar-item" to={'experiences/'+getUid()}>Tus Exper</Link> }
+            {user && <Link className="navbar-item" to={'formulario'}>Add exper</Link> }
+            {user && <Link className="navbar-item" to={'users'}>Users</Link> }
+            {user && <Link className="navbar-item" to={'users/'+getUid()}>Perfil</Link> } */}
           </a>
         </div>
 
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">
-            {user && <Link className="navbar-item" to={'/home/'+user.uid}>Home</Link> }
+            {user && <Link className="navbar-item" to={'/home/'}>Home</Link> }
 
             {user && <Link className="navbar-item" to={'experiences'}>Exper</Link> }
-            {user && <Link className="navbar-item" to={'experiences/'+getUid()}>Tus Exper</Link> }
-            {user && <Link className="navbar-item" to={'formulario'}>Add exper</Link> }
+            {user && <Link className="navbar-item" to={'addExperience'}>Add exper</Link> }
             {user && <Link className="navbar-item" to={'users'}>Users</Link> }
             {user && <Link className="navbar-item" to={'users/'+getUid()}>Perfil</Link> }
 
