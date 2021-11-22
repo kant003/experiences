@@ -79,6 +79,9 @@ export default function Experience({ experience }) {
                                 :
                                 <button onClick={() => onFollow(user.uid)}>Seguir</button>
                             }
+                            {user && <Link to={`/chat/${authUser.uid}/${user.uid}`}>Chat</Link> }
+
+
                         </div>
                         <p className="subtitle is-6">{user && user.displayName}</p>
                         <p className="subtitle is-6">{experience.createdAt && experience.createdAt.toDate().toDateString()}</p>

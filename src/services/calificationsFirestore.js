@@ -12,5 +12,3 @@ const addCalification  = async (id, uid, value) => await setDoc(doc(db, CALIFICA
 const getCalification  = async (id, uid) => await getDoc(doc(db, CALIFICATIONS, id, 'uids', uid));
 
 export { getCalification, addCalification }
-
-

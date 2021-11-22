@@ -8,6 +8,8 @@ import Experiences from '../components/Experiences';
 import Search from '../components/Search';
 import {useExperiences} from '../hooks/useExperiences';
 import { useNavigate } from "react-router";
+import Banners from '../components/Banners';
+import { useBanners } from '../hooks/useBanners';
 
 function LandingPage() {
   const [user, setUser] = useState(null)
@@ -15,6 +17,7 @@ function LandingPage() {
   //const { uid } = useParams();
   const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
   const {loading, experiences} = useExperiences({keyword, uid:authUser.uid})
+  const {loadingBanner, banners} = useBanners()
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +54,8 @@ function LandingPage() {
           <Followers uid={authUser.uid} userMap={user && user.followers}></Followers>
           <h2 className="title">Siguiendo:</h2>
           <Following uid={authUser.uid} userMap={user && user.following}></Following>
+          <h2 className="title">Banners:</h2>
+          <Banners banners={banners}></Banners>
         </div>
       </div>
     </>

@@ -19,8 +19,8 @@ export default function User({user, mode}) {
                     <div>uid: {user && user.uid}</div>
                     <div>emailVerified: {user && user.emailVerified?'Si':'No'}</div>
                     <div>isAnonymous: {user && user.isAnonymous?'Si':'No'}</div>
-                    <div>Seguidores: {user && user.followers && Object.keys(user.followers).length && 'nada'}</div>
-                    <div>Siguiendo: {user && user.following && Object.keys(user.following).length && 'nada'}</div>
+                    <div>Seguidores: {user && user.followers && Object.keys(user.followers).length}</div>
+                    <div>Siguiendo: {user && user.following && Object.keys(user.following).length }</div>
                     <div>Roles: {user && user.roles && Object.keys(user.roles).length && 'nada'}</div>
                     <div>Creado en: {user && user.createdAt.toDate().toDateString()}</div>
                     <div>Foto: {user && user.photoURL}</div>

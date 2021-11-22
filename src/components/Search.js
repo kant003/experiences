@@ -18,7 +18,7 @@ function Search({onSubmit}) {
     return (
         <div>
             <form onSubmit={hanbleSubmit}>
-            Buscar: <input value={keyword} onChange={e => setKeyword(e.target.value)} />
+            Buscar por tag: <input value={keyword} onChange={e => setKeyword(e.target.value)} />
             </form>
         </div>
     );

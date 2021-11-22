@@ -11,6 +11,7 @@ import AddExperiencePage from './pages/AddExperiencePage';
 import UsersPage from './pages/UsersPage';
 import SignInPage from './pages/SignInPage';
 import PerfilPage from './pages/PerfilPage';
+import ChatPage from './pages/ChatPage';
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="addExperience/:id" element={<AddExperiencePage />} />
           <Route path="users" element={<UsersPage />} />
           <Route path="users/:uid" element={<PerfilPage />} />
+          <Route path="chat/:uid1/:uid2" element={<ChatPage />} />
           <Route path="home" element={<LandingPage />} />
           <Route path="SignIn" element={<SignInPage />} />
           <Route path="*" element={<NotFound />} />

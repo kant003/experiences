@@ -35,7 +35,9 @@ function Comments({ idExp, authUser }) {
                     <div key={comment.id}>
                         <img src={comment.userPhotoUrl} alt="foto" width="40" />
                         {comment.userDisplayName} dice: {comment.text}
-                        <button onClick={(e) => handleRemove(e, comment.id)}> - (Eliminar)</button>
+                        
+                             <button onClick={(e) => handleRemove(e, comment.id)} class="delete"></button>
+
                     </div>
 
 
