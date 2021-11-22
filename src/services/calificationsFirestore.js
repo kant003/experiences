@@ -5,9 +5,6 @@ const CALIFICATIONS = 'califications'
 
 const db = getFirestore(app);
 
-
-// califications
-
 const addCalification  = async (id, uid, value) => await setDoc(doc(db, CALIFICATIONS, id, 'uids', uid), { value }, { merge: true });
 const getCalification  = async (id, uid) => await getDoc(doc(db, CALIFICATIONS, id, 'uids', uid));
 

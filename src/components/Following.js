@@ -1,5 +1,6 @@
 import UserCardSimple from './UserCardSimple';
 import { unFollow ,unMentor} from '../services/usersFirestore';
+import {notify, notifyError } from '../services/Utils';
 
 const divStyle = {
     display:'flex',
@@ -19,12 +20,15 @@ function Following({ uid, userMap }) {
 
     const onUnFollow = async (keyy) => {
         try {
+
             await unFollow(uid,keyy)
             await unMentor(keyy,uid)
+            notify('Dejando de seguir al usuario')
 
             console.log('desuscrito',uid,keyy);
         } catch (error) {
-            console.error('error:',error)
+            notifyError('Error al dejar de seguir: '+error)
+
         }
     }
 

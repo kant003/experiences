@@ -8,7 +8,6 @@ function PerfilPage() {
   const { uid } = useParams();
 
   useEffect(() => {
-    console.log(uid)
     getUser(uid).then(u => setUser(u.data()))
 }, [uid])
 

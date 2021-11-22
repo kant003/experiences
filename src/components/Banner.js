@@ -1,9 +1,9 @@
 
 export default function Banner({ banner }) {
     return (
-        <div class="box">
-            <div>uid: {banner && banner.id}</div>
-            <div>uid: {banner && banner.text}</div>
+        <div className="box">
+            <div>id: {banner && banner.id}</div>
+            <div>text: {banner && banner.text}</div>
          </div>
        
     )

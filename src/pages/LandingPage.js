@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { getUserRef} from "../services/experiencesFirestore";
-import { getUser } from "../services/usersFirestore";
 import Followers from '../components/Followers';
 import Following from '../components/Following';
 import { onSnapshot } from '@firebase/firestore';
@@ -10,6 +9,7 @@ import {useExperiences} from '../hooks/useExperiences';
 import { useNavigate } from "react-router";
 import Banners from '../components/Banners';
 import { useBanners } from '../hooks/useBanners';
+import { notify } from '../services/Utils';
 
 function LandingPage() {
   const [user, setUser] = useState(null)
@@ -21,21 +21,15 @@ function LandingPage() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    console.log(keyword)
-    console.log(authUser.uid)
-    getUser(authUser.uid).then(u => {
-      setUser(u.data())
-    })
 
-    const unsub = onSnapshot(getUserRef(authUser.uid), (u) => {
-      setUser(u.data())
-    });
+    const unsub = onSnapshot(getUserRef(authUser.uid), u => setUser(u.data()) );
+
     return () => unsub();
   }, [keyword, authUser.uid])
 
   const handleSubmit = ({keyword}) => {
     navigate(`/experiences/${keyword}`)
-
+    notify('Buscando...')
     console.log('desde padre',keyword)
 }
 
@@ -55,7 +49,7 @@ function LandingPage() {
           <h2 className="title">Siguiendo:</h2>
           <Following uid={authUser.uid} userMap={user && user.following}></Following>
           <h2 className="title">Banners:</h2>
-          <Banners banners={banners}></Banners>
+          {loadingBanner && <Banners banners={banners}></Banners> }
         </div>
       </div>
     </>

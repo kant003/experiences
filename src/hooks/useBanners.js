@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { getAllBanners } from "../services/bannersFirestore";
 import { onSnapshot } from '@firebase/firestore';
+import { notifyError } from '../services/Utils';
 
 export function useBanners() {
     const [loading, setLoading] = useState(false)
@@ -14,7 +15,9 @@ export function useBanners() {
                 setBanners(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
             },
-            error => console.log('error al cargar los datos', error));
+            error => notifyError('Error al cargar los banners: '+error)
+
+        );
         return () => unsubscribe()
     }, [])
 

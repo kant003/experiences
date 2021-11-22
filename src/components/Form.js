@@ -12,7 +12,6 @@ export default function Form({ id, title, text, type }) {
     const [tags, setTags] = useState(['huesos', 'piel']);
 
     const onSubmit = async data => {
-        console.log('datos', data);
         data.tags=tags
         const authUser = await JSON.parse(localStorage.getItem('authUser'))
         data.userRef=getUserRef(authUser.uid)

@@ -1,19 +1,37 @@
 
 import { store } from 'react-notifications-component';
 
-function notify(title, message, type="success"){
+
+//https://github.com/teodosii/react-notifications-component
+function notify(message){
     store.addNotification({
-        title,
+        title:'',
         message,
-        type,
+        type:'success',
         insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
+        container: "bottom-center",
+        animationIn: ["animate__animated", "animate__bounceIn"],
+        animationOut: ["animate__animated", "animate__bounceOut"],
         dismiss: {
           duration: 2000,
           onScreen: true
         }
       });
 }
-export default notify;
+
+function notifyError(message=''){
+  store.addNotification({
+      title:'Error',
+      message,
+      type: 'danger',
+      insert: "top",
+      container: "bottom-center",
+      animationIn: ["animate__animated", "animate__bounceIn"],
+      animationOut: ["animate__animated", "animate__bounceOut"],
+      dismiss: {
+        duration: 6000,
+        onScreen: true
+      }
+    });
+}
+export {notify, notifyError};

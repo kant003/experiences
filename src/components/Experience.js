@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { removeExperience } from "../services/experiencesFirestore";
-import { getUser } from "../services/usersFirestore";
-import { follow, unMentor, unFollow, followUser } from '../services/usersFirestore';
+import { getUserRef, removeExperience } from "../services/experiencesFirestore";
 import Stars from './Stars';
+import User from './User';
 import { addCalification, getCalification } from "../services/calificationsFirestore";
+import { onSnapshot } from '@firebase/firestore';
+import {notify, notifyError } from '../services/Utils';
 
 export default function Experience({ experience }) {
     const [user, setUser] = useState(null)
@@ -12,78 +13,51 @@ export default function Experience({ experience }) {
     const [star, setStar] = useState(null)
 
     useEffect(() => {
+
+        const unsub = onSnapshot(getUserRef(experience.userRef.id), u => setUser(u.data()));
+
         //console.log('la exp',experience, authUser.uid)
-        getUser(experience.userRef.id).then(u => setUser(u.data()))
+        //getUser(experience.userRef.id).then(u => setUser(u.data()))
+
         getCalification(experience.id, authUser.uid).then(star => {
-            setStar(star.data() && star.data().value )
-         } )
+            setStar(star.data() && star.data().value)
+        })
+
+        return () => unsub();
     }, [experience, authUser.uid])
 
     const tagList = () => experience.tags.map(tag =>
         <span key={experience.id + tag} className="tag">#{tag}</span>
     )
 
-    const onFollow = async (keyy) => {
-        try {
-            await follow(authUser.uid, keyy)
-            await followUser(keyy, authUser.uid, false)
-            getUser(experience.userRef).then(u => setUser(u.data())) //TODO: no es necesario
 
-            console.log('followed', authUser.uid, keyy);
-        } catch (error) {
-            console.error('error:', error)
-        }
-    }
 
-    const onUnFollow = async (keyy) => {
-        try {
-            await unFollow(authUser.uid, keyy)
-            await unMentor(keyy, authUser.uid)
-            getUser(experience.userRef).then(u => setUser(u.data())) //TODO: no es necesario
 
-            console.log('desuscrito', authUser.uid, keyy);
-        } catch (error) {
-            console.error('error:', error)
-        }
-    }
-
-    
-    const handleSubmitStarChange = async ({value}) => {
-        console.log('desde padre',value)
+    const handleSubmitStarChange = async ({ value }) => {
         try {
             await addCalification(experience.id, authUser.uid, value)
             setStar(value)
-           //notify('Calificación','Calificación establecida correctamente')
+            notify('Calificación establecida correctamente')
         } catch (error) {
-            console.error('error:', error)
-            //notify('Calificación','Calificación establecida correctamente', 'error')
+            notifyError('Error al añadir la calificación: '+error)
         }
     }
-    
+
+
+    const isMyExperience = () => user && authUser.uid === user.uid
+
+
     return (
-        
+
         <div className="card" key={experience.id}>
             <div className="card-content">
+                {user && <User user={user} mode={'simple'} />}
                 <div className="media">
-                    <div className="media-left">
-                        <figure className="image is-48x48">
-                            <img src={user && user.photoURL} alt="Placeholder image2" />
-                        </figure>
-                    </div>
+
                     <div className="media-content">
                         <div className="title is-4">
                             <p className="title is-4">{experience.title}</p>
-                            {authUser && user && user.uid !== authUser.uid && user.followers != null && Object.keys(user.followers).includes(authUser.uid)
-                                ?
-                                <button onClick={() => onUnFollow(user.uid)}>Dejar de Seguir</button>
-                                :
-                                <button onClick={() => onFollow(user.uid)}>Seguir</button>
-                            }
-                            {user && <Link to={`/chat/${authUser.uid}/${user.uid}`}>Chat</Link> }
-
-
                         </div>
-                        <p className="subtitle is-6">{user && user.displayName}</p>
                         <p className="subtitle is-6">{experience.createdAt && experience.createdAt.toDate().toDateString()}</p>
                     </div>
                 </div>
@@ -97,8 +71,8 @@ export default function Experience({ experience }) {
 
                     <div className="buttons">
                         <Link className="button is-link is-light" to={'/experience/' + experience.id}>Ver</Link>
-                        <Link className="button is-link is-light" to={'/formulario/' + experience.id}>Editar</Link>
-                        <button className="button is-link is-light" onClick={e => removeExperience(experience.id)}>Eliminar</button>
+                        {isMyExperience() && <Link className="button is-link is-light" to={'/formulario/' + experience.id}>Editar</Link>}
+                        {isMyExperience() && <button className="button is-link is-light" onClick={e => removeExperience(experience.id)}>Eliminar</button>}
                     </div>
 
                 </div>

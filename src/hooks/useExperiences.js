@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { getSearchExperiences } from "../services/experiencesFirestore";
 import { onSnapshot } from '@firebase/firestore';
+import { notifyError } from '../services/Utils';
 
 
 export function useExperiences({keyword, uid}) {
@@ -16,7 +17,8 @@ export function useExperiences({keyword, uid}) {
                 setExperiences(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
             },
-            error => console.log('error al cargar los datos', error));
+            error => notifyError('Error al cargar las experiencias: '+error)
+        );
         return () => unsubscribe()
     }, [keyword, uid])
 

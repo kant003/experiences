@@ -5,7 +5,6 @@ const EXPERIENCES = 'experiences'
 const USERS = 'users'
 
 const db = getFirestore(app);
-// Experiences
 
 const getUserRef = uid => doc(db, USERS, uid);
 

@@ -10,10 +10,6 @@ function ExperieneDetail() {
   const {loading, chats, addMsg} = useChats({idRoom})
   const [msg, setMsg] = useState("");
 
-  useEffect(() => {
-
-    
-  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();

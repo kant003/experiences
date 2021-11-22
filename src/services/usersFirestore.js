@@ -5,11 +5,7 @@ const USERS = 'users'
 const db = getFirestore(app);
 
 
-// Users
-
 const getAllUsers = () => collection(db, USERS)
-
-//const getUserRef = uid => doc(db, USERS, uid);
 
 const getUser = async uid  => await getDoc(doc(db, USERS, uid))
 

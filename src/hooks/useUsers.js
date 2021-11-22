@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { onSnapshot } from '@firebase/firestore';
 import { getAllUsers } from "../services/usersFirestore";
+import { notifyError } from '../services/Utils';
 
 export function useUsers() {
 
@@ -16,7 +17,8 @@ export function useUsers() {
                 setUsers(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
             },
-            error => console.log('error al cargar los datos', error));
+            error => notifyError('Error al cargar los usuarios: '+error)
+        );
         return () => unsubscribe()
     }, [])
 

@@ -1,5 +1,6 @@
 import { followUser, followingUser } from '../services/usersFirestore';
 import UserCardSimple from './UserCardSimple';
+import {notify, notifyError } from '../services/Utils';
 
 const divStyle = {
     display:'flex',
@@ -15,8 +16,11 @@ function Followers({ uid, userMap }) {
         try {
             await followUser(uid,keyy,value)
             await followingUser(keyy,uid,value)
+            notify('Siguiendo al usuario')
+
         } catch (error) {
-            console.error('error:',error)
+            notifyError('Error al seguir al usuario: '+error)
+
         }
     }
 

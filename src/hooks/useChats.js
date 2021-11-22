@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { onSnapshot } from '@firebase/firestore';
 import { getChats, saveMsg } from "../services/chatsFirestore";
-import notify from '../services/Utils';
+import { notifyError } from '../services/Utils';
 
 
 export function useChats({idRoom}) {
@@ -20,12 +20,10 @@ export function useChats({idRoom}) {
             snapshot => {
                 setChats(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
-                console.log(chats)
             },
-            error => console.log('error al cargar los datos', error),
+            error => notifyError('Error al cargar los chats: '+error),
             //complete => notify('Calificación','Calificación establecida correctamente')
             );
-            notify('Chat','correctamente')
 
             
         return () => unsubscribe()

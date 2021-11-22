@@ -15,15 +15,6 @@ function ExperieneDetail() {
       setExperience({ ...exp.data(), id: exp.id })
     })
 
-    /*console.log(uid)
-    getUser(getUserRef(uid)).then(u => {
-      setUser(u.data())
-    })
-
-    const unsub = onSnapshot(getUserRef(uid), (u) => {
-      setUser(u.data())
-    });
-    return () => unsub();*/
   }, [id])
 
 

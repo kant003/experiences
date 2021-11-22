@@ -38,7 +38,9 @@ function App() {
 
   return (
     <div className="app-container">
-      <React.StrictMode>
+      <ReactNotification />
+      <React.StrictMode>        
+
         <Navigation></Navigation>
 
         <Routes>
@@ -58,7 +60,6 @@ function App() {
 
         </Routes>
 
-        <ReactNotification />
 
       </React.StrictMode>
     </div>
