@@ -51,7 +51,7 @@ export default function Experience({ experience }) {
 
         <div className="card" key={experience.id}>
             <div className="card-content">
-                {user && <User user={user} mode={'simple'} />}
+                {user && !isMyExperience() && <User user={user} mode={'simple'} />}
                 <div className="media">
 
                     <div className="media-content">

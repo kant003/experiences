@@ -8,6 +8,7 @@ body{
 
 .card{
     margin-bottom: 1rem;
+    min-width: 50%;
 }
 
 .card>.card-content>.content>.buttons{
