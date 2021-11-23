@@ -1,6 +1,6 @@
 import Banner from './Banner';
 
-function Banners({banners}) {
+function Banners({ banners }) {
 
     return (
         banners.map(

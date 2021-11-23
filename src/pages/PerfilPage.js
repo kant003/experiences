@@ -9,7 +9,7 @@ function PerfilPage() {
 
   useEffect(() => {
     getUser(uid).then(u => setUser(u.data()))
-}, [uid])
+  }, [uid])
 
 
   return (

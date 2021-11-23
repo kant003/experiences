@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="app-container">
       <ReactNotification />
-      <React.StrictMode>        
+      <React.StrictMode>
 
         <Navigation></Navigation>
 

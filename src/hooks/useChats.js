@@ -5,7 +5,7 @@ import { getChats, saveMsg } from "../services/chatsFirestore";
 import { notifyError } from '../services/Utils';
 
 
-export function useChats({idRoom}) {
+export function useChats({ idRoom }) {
     const [loading, setLoading] = useState(false)
     const [chats, setChats] = useState([])
 
@@ -21,11 +21,10 @@ export function useChats({idRoom}) {
                 setChats(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
             },
-            error => notifyError('Error al cargar los chats: '+error),
-            //complete => notify('Calificación','Calificación establecida correctamente')
-            );
+            error => notifyError('Error al cargar los chats: ' + error),
+        );
 
-            
+
         return () => unsubscribe()
     }, [idRoom])
 

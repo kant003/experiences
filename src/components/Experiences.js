@@ -1,8 +1,8 @@
 import Experience from './Experience';
 
-function Experiences({experiences}) {
+function Experiences({ experiences }) {
     return (
-        experiences.map( experience =>
+        experiences.map(experience =>
             <Experience key={experience.id} experience={experience} />
         )
     );

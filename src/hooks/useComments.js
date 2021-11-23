@@ -5,7 +5,7 @@ import { getComentsByExperienceId, saveComment, removeComment } from "../service
 import { notifyError } from '../services/Utils';
 
 
-export function useComments({idExp, authUser}) {
+export function useComments({ idExp, authUser }) {
     const [loading, setLoading] = useState(false)
     const [comments, setComents] = useState([])
 
@@ -22,11 +22,10 @@ export function useComments({idExp, authUser}) {
                 setComents(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
             },
-            error => notifyError('Error al cargar los commentarios: '+error)
-            //complete => notify('Calificación','Calificación establecida correctamente')
-            );
+            error => notifyError('Error al cargar los commentarios: ' + error)
+        );
 
-            
+
         return () => unsubscribe()
     }, [idExp])
 

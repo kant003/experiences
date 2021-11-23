@@ -15,8 +15,6 @@ function ExperiencesPage() {
   let navigate = useNavigate();
 
   const handleSubmit = ({ keyword }) => {
-
-    console.log('desde padre', keyword)
     navigate(`/experiences/${keyword}`)
     notify('Buscando...')
   }
@@ -25,12 +23,7 @@ function ExperiencesPage() {
     <>
       <h1 className="title">Lista de experiencias</h1>
       <Search onSubmit={handleSubmit} />
-      {
-        loading ?
-          <div>Cargando</div>
-          :
-          <Experiences experiences={experiences} />
-      }
+      {loading ? <div>Cargando</div> : <Experiences experiences={experiences} />}
     </>
   );
 }

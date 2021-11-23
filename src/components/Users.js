@@ -1,6 +1,6 @@
 import User from './User';
 
-function Users({users}) {
+function Users({ users }) {
 
     return (
         users.map(

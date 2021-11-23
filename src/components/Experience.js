@@ -5,7 +5,7 @@ import Stars from './Stars';
 import User from './User';
 import { addCalification, getCalification } from "../services/calificationsFirestore";
 import { onSnapshot } from '@firebase/firestore';
-import {notify, notifyError } from '../services/Utils';
+import { notify, notifyError } from '../services/Utils';
 
 export default function Experience({ experience }) {
     const [user, setUser] = useState(null)
@@ -15,9 +15,6 @@ export default function Experience({ experience }) {
     useEffect(() => {
 
         const unsub = onSnapshot(getUserRef(experience.userRef.id), u => setUser(u.data()));
-
-        //console.log('la exp',experience, authUser.uid)
-        //getUser(experience.userRef.id).then(u => setUser(u.data()))
 
         getCalification(experience.id, authUser.uid).then(star => {
             setStar(star.data() && star.data().value)
@@ -31,15 +28,13 @@ export default function Experience({ experience }) {
     )
 
 
-
-
     const handleSubmitStarChange = async ({ value }) => {
         try {
             await addCalification(experience.id, authUser.uid, value)
             setStar(value)
             notify('Calificación establecida correctamente')
         } catch (error) {
-            notifyError('Error al añadir la calificación: '+error)
+            notifyError('Error al añadir la calificación: ' + error)
         }
     }
 
@@ -71,7 +66,7 @@ export default function Experience({ experience }) {
 
                     <div className="buttons">
                         <Link className="button is-link is-light" to={'/experience/' + experience.id}>Ver</Link>
-                        {isMyExperience() && <Link className="button is-link is-light" to={'/formulario/' + experience.id}>Editar</Link>}
+                        {isMyExperience() && <Link className="button is-link is-light" to={'/addExperience/' + experience.id}>Editar</Link>}
                         {isMyExperience() && <button className="button is-link is-light" onClick={e => removeExperience(experience.id)}>Eliminar</button>}
                     </div>
 

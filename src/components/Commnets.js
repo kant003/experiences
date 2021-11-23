@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useComments } from '../hooks/useComments';
-import {notify } from '../services/Utils';
+import { notify } from '../services/Utils';
 
 function Comments({ idExp, authUser }) {
 
@@ -30,6 +30,7 @@ function Comments({ idExp, authUser }) {
             </label>
             <input type="submit" />
         </form>
+
 
     const list = () => loading ?
         <div>Cargando...</div>

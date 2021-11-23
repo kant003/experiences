@@ -5,7 +5,7 @@ import { onSnapshot } from '@firebase/firestore';
 import { notifyError } from '../services/Utils';
 
 
-export function useOwnExperiences({uid}) {
+export function useOwnExperiences({ uid }) {
     const [loading, setLoading] = useState(false)
     const [experiences, setExperiences] = useState([])
 
@@ -17,7 +17,7 @@ export function useOwnExperiences({uid}) {
                 setExperiences(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
             },
-            error => notifyError('Error al cargar las experiencias personales: '+error)
+            error => notifyError('Error al cargar las experiencias personales: ' + error)
         );
         return () => unsubscribe()
     }, [uid])

@@ -1,24 +1,18 @@
 import { useState } from "react";
 
-function Search({onSubmit}) {
+function Search({ onSubmit }) {
     const [keyword, setKeyword] = useState('')
-    //const [path, pushLocation] = useLocation()
-
-    /*const handleChange = (e) => {
-        setKeyword(e.target.value)
-    }*/
 
     const hanbleSubmit = (e) => {
         e.preventDefault()
-        onSubmit({keyword})
-       // onSearch(keyword)
-      //  pushLocation(`/search/${keyword}`)
+        onSubmit({ keyword })
+        //  pushLocation(`/search/${keyword}`)
     }
 
     return (
         <div>
             <form onSubmit={hanbleSubmit}>
-            Buscar por tag: <input value={keyword} onChange={e => setKeyword(e.target.value)} />
+                Buscar por tag: <input value={keyword} onChange={e => setKeyword(e.target.value)} />
             </form>
         </div>
     );

@@ -1,7 +1,7 @@
 
 
 import { getFirestore, query, collection, orderBy, limit } from 'firebase/firestore';
-import {app} from './auth';
+import { app } from './auth';
 
 const BANNERS = 'banners'
 

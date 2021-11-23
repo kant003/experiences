@@ -31,7 +31,6 @@ function SignInGoogleBase() {
         //const errorCode = error.code;
         const errorMessage = error.message;
         //const email = error.email;
-
         console.log('fallo en login:', errorMessage)
 
         setError(error)

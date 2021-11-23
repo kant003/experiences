@@ -1,4 +1,4 @@
-import { saveExperience, getUserRef } from "../services/experiencesFirestore";
+import { addExperience, updateExperience, getUserRef } from "../services/experiencesFirestore";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
@@ -7,27 +7,29 @@ import { useState } from "react";
 // podemos usar yup para la validación
 // TOD: poner los tags en un componente aparte
 
-export default function Form({ id, title, text, type }) {
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
+export default function Form({id, experience}) {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [tags, setTags] = useState(['huesos', 'piel']);
 
     const onSubmit = async data => {
-        data.tags=tags
+        data.tags = tags
         const authUser = await JSON.parse(localStorage.getItem('authUser'))
-        data.userRef=getUserRef(authUser.uid)
-        await saveExperience(data)
+        data.userRef = getUserRef(authUser.uid)
+        if(id)   await updateExperience(id, data)
+        else await addExperience(data)
         reset();
     }
 
-    console.log(watch("example")); // watch input value by passing the name of it
+    //console.log(watch("example")); // watch input value by passing the name of it
 
-    const removeTag = (tag) => setTags(tags.filter(t=>t!==tag))
+    const removeTag = (tag) => setTags(tags.filter(t => t !== tag))
 
     const listTags = tags.map((tag) =>
         <div key={tag} className="control">
+            
             <div className="tags has-addons">
                 <span className="tag is-success"> {tag}
-                    <button className="delete is-small" onClick={()=>removeTag(tag)}>x</button>
+                    <button className="delete is-small" onClick={() => removeTag(tag)}>x</button>
                 </span>
             </div>
         </div>
@@ -36,6 +38,7 @@ export default function Form({ id, title, text, type }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+            {id}
             {/* register your input into the hook by invoking the "register" function */}
             <div className="field">
                 <label className="label">Titulo</label>

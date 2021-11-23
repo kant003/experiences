@@ -17,7 +17,7 @@ export function useUsers() {
                 setUsers(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
                 setLoading(false)
             },
-            error => notifyError('Error al cargar los usuarios: '+error)
+            error => notifyError('Error al cargar los usuarios: ' + error)
         );
         return () => unsubscribe()
     }, [])

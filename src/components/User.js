@@ -2,7 +2,7 @@
 import { follow, unMentor, unFollow, followUser } from '../services/usersFirestore';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {notify, notifyError } from '../services/Utils';
+import { notify, notifyError } from '../services/Utils';
 
 export default function User({ user, mode = "complex" }) {
     const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
@@ -14,7 +14,7 @@ export default function User({ user, mode = "complex" }) {
             notify('Siguiendo al usuario')
 
         } catch (error) {
-            notifyError('Error al seguir al usuario: '+error)
+            notifyError('Error al seguir al usuario: ' + error)
 
         }
     }
@@ -26,13 +26,13 @@ export default function User({ user, mode = "complex" }) {
             notify('Dejando de seguir al usuario')
 
         } catch (error) {
-            notifyError('Error al dejar de seguir al usuario: '+error)
+            notifyError('Error al dejar de seguir al usuario: ' + error)
         }
     }
 
     const itsMe = () => user && authUser.uid === user.uid
-    const iAmYourFollower = () => user && user.followers && user.followers[authUser.uid]!=null
-    const isMyMentor = () => user && user.followers && user.followers[authUser.uid] 
+    const iAmYourFollower = () => user && user.followers && user.followers[authUser.uid] != null
+    const isMyMentor = () => user && user.followers && user.followers[authUser.uid]
 
 
     return (
@@ -48,14 +48,14 @@ export default function User({ user, mode = "complex" }) {
                         <p className="title is-4">
                             {user && user.certificate && '🎖️'}
                             {user && user.displayName}
-                            {!itsMe() && iAmYourFollower() &&  <button onClick={() => onUnFollow(user.uid)}>Dejar de Seguir</button>}
+                            {!itsMe() && iAmYourFollower() && <button onClick={() => onUnFollow(user.uid)}>Dejar de Seguir</button>}
                             {!itsMe() && !iAmYourFollower() && <button onClick={() => onFollow(user.uid)}>Seguir</button>}
                         </p>
                         <p className="subtitle is-6">{user && user.email}</p>
                         <p className="subtitle is-6">
-                            {isMyMentor() && <span>Ya es tu mentor:</span> }
-                            {isMyMentor() && user && <Link to={`/chat/${authUser.uid}/${user.uid}`}>Chat</Link> }
-                            {!isMyMentor() && <span>Aun no es tu mentor</span> }
+                            {isMyMentor() && <span>Ya es tu mentor:</span>}
+                            {isMyMentor() && user && <Link to={`/chat/${authUser.uid}/${user.uid}`}>Chat</Link>}
+                            {!isMyMentor() && <span>Aun no es tu mentor</span>}
                         </p>
                     </div>
                 </div>
