@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import { getUserRef, removeExperience } from "../services/experiencesFirestore";
 import Stars from './Stars';
 import User from './User';
-import { addCalification, getCalification } from "../services/calificationsFirestore";
+import { addCalification, getCalification, getCalificationsByIdExperience } from "../services/calificationsFirestore";
 import { onSnapshot } from '@firebase/firestore';
 import { notify, notifyError } from '../services/Utils';
+import { useNavigate } from "react-router";
+import { faComments, faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Experience({ experience }) {
     const [user, setUser] = useState(null)
     const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
     const [star, setStar] = useState(null)
+    const [starSum, setStarSum] = useState(0)
+
+    let navigate = useNavigate();
 
     useEffect(() => {
 
@@ -19,6 +25,15 @@ export default function Experience({ experience }) {
         getCalification(experience.id, authUser.uid).then(star => {
             setStar(star.data() && star.data().value)
         })
+
+        const refCollection = getCalificationsByIdExperience(experience.id)
+        onSnapshot(refCollection,
+            snapshot => {
+                const sum = snapshot.docs.map(doc => (doc.data().value )).reduce((a,b)=>a+b, 0) 
+                 setStarSum(sum)
+            },
+            error => notifyError('Error al cargar las calificaciones: ' + error)
+        );
 
         return () => unsub();
     }, [experience, authUser.uid])
@@ -41,37 +56,41 @@ export default function Experience({ experience }) {
 
     const isMyExperience = () => user && authUser.uid === user.uid
 
-
     return (
-
-        <div className="card" key={experience.id}>
+        <div className="card" key={experience.id} >
             <div className="card-content">
                 {user && !isMyExperience() && <User user={user} mode={'simple'} />}
-                <div className="media">
-
-                    <div className="media-content">
-                        <div className="title is-4">
-                            <p className="title is-4">{experience.title}</p>
-                        </div>
-                        <p className="subtitle is-6">{experience.createdAt && experience.createdAt.toDate().toDateString()}</p>
-                    </div>
-                </div>
-
+                
                 <div className="content">
-                    {experience.text}
-                    <br />
-                    <div className="tags">{tagList()}</div>
-
-                    {experience.id && <Stars star={star} onSubmit={handleSubmitStarChange}> </Stars>}
-
-                    <div className="buttons">
-                        <Link className="button is-link is-light" to={'/experience/' + experience.id}>Ver</Link>
-                        {isMyExperience() && <Link className="button is-link is-light" to={'/addExperience/' + experience.id}>Editar</Link>}
-                        {isMyExperience() && <button className="button is-link is-light" onClick={e => removeExperience(experience.id)}>Eliminar</button>}
-                    </div>
-
+                    <p className="title is-4">{experience.title}</p>
+                    <div>{experience.text}</div>
+                    <p className="subtitle is-6 is-italic has-text-right">{experience.createdAt && experience.createdAt.toDate().toDateString()}</p>
                 </div>
+                <div className="content">
+                    <div className="tags">{tagList()}</div>
+                </div>
+                <div className="content is-flex is-justify-content-space-around">
+
+                    <span className="is-flex">
+                        {experience.id && <Stars star={star} onSubmit={handleSubmitStarChange}> </Stars>}
+                        ( {starSum} )
+                    </span>
+
+                    <Link className=" is-link is-light" to={'/experience/' + experience.id}>
+                        <FontAwesomeIcon icon={faComments} /> 
+                        Comentarios</Link>
+                    <Link className=" is-link is-light" to={'/experience/' + experience.id}>
+                        <FontAwesomeIcon icon={faComments} /> 
+                        Ver</Link>
+                        
+                        
+                    {isMyExperience() && <Link className="link is-link is-light" to={'/addExperience/' + experience.id}><FontAwesomeIcon icon={faEdit} />  Editar</Link>}
+                    {isMyExperience() && <a className=" is-link  is-text" onClick={e => removeExperience(experience.id)}><FontAwesomeIcon icon={faTrashAlt} /> Eliminar</a>}
+                    
+                </div>
+
             </div>
         </div>
+
     )
 }

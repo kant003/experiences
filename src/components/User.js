@@ -36,8 +36,7 @@ export default function User({ user, mode = "complex" }) {
 
 
     return (
-        <div className="card">
-            <div className="card-content">
+        <>
                 <div className="media">
                     <div className="media-left">
                         <figure className="image is-48x48">
@@ -45,18 +44,19 @@ export default function User({ user, mode = "complex" }) {
                         </figure>
                     </div>
                     <div className="media-content">
-                        <p className="title is-4">
-                            {user && user.certificate && '🎖️'}
-                            {user && user.displayName}
-                            {!itsMe() && iAmYourFollower() && <button onClick={() => onUnFollow(user.uid)}>Dejar de Seguir</button>}
-                            {!itsMe() && !iAmYourFollower() && <button onClick={() => onFollow(user.uid)}>Seguir</button>}
-                        </p>
-                        <p className="subtitle is-6">{user && user.email}</p>
-                        <p className="subtitle is-6">
+                        <div>
+                            <span className="title is-4">
+                                {user && user.certificate && '🎖️'}
+                                {user && user.displayName}
+                            </span>
+                            {!itsMe() && iAmYourFollower() && <button className="button is-small" onClick={() => onUnFollow(user.uid)}>Dejar de Seguir</button>}
+                            {!itsMe() && !iAmYourFollower() && <button className="button is-small" onClick={() => onFollow(user.uid)}>Seguir</button>}
                             {isMyMentor() && <span>Ya es tu mentor:</span>}
-                            {isMyMentor() && user && <Link to={`/chat/${authUser.uid}/${user.uid}`}>Chat</Link>}
+                            {isMyMentor() && user && <Link className="button is-small" to={`/chat/${authUser.uid}/${user.uid}`}>Chat</Link>}
                             {!isMyMentor() && <span>Aun no es tu mentor</span>}
-                        </p>
+                        </div>
+                        <p className="subtitle is-6">{user && user.email}</p>
+           
                     </div>
                 </div>
                 {mode === 'complex' && <div className="content">
@@ -72,7 +72,6 @@ export default function User({ user, mode = "complex" }) {
                     <div>Cartera NFT: XXX</div>
                 </div>
                 }
-            </div>
-        </div>
+         </>
     )
 }

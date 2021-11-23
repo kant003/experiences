@@ -9,12 +9,16 @@ function Stars({ star, onSubmit }) {
         onSubmit({ value })
     }
 
+    const divStyle = {
+        borderColor: 'black',
+    };
+
     return (
         <div>
             {
                 [1, 2, 3, 4, 5].map(v =>
-                    <span key={v} onClick={e => onCalificate(e, v)}>
-                        {star === v ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faStarRegular} />}
+                    <span className="has-text-warning" style={divStyle} key={v} onClick={e => onCalificate(e, v)}>
+                        {star === v ? <FontAwesomeIcon  icon={faStar} /> : <FontAwesomeIcon icon={faStarRegular} />}
                     </span>
                 )
             }

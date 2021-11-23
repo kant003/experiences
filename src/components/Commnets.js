@@ -37,9 +37,35 @@ function Comments({ idExp, authUser }) {
         :
         comments.map((comment) =>
             <div key={comment.id}>
-                <img src={comment.userPhotoUrl} alt="foto" width="40" />
-                {comment.userDisplayName} dice: {comment.text}
-                <button onClick={(e) => handleRemove(e, comment.id)} class="delete"></button>
+
+
+
+                <div className="media">
+                    <div className="media-left">
+                        <figure className="image is-48x48">
+                            <img src={comment.userPhotoUrl} alt="foto" />
+                        </figure>
+                    </div>
+                    <div className="media-content">
+                        <div>
+                            <span className="title is-6">
+                                {comment.userDisplayName}
+                            </span>
+                            &nbsp;
+                            dice:
+                        </div>
+
+                        <div className="content">
+                            {comment.text}
+                        </div>
+                        <div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
             </div>
 
 
