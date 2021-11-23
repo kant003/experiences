@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 
 import './App.css';
 import LandingPage from './pages/LandingPage';
@@ -12,15 +11,13 @@ import UsersPage from './pages/UsersPage';
 import SignInPage from './pages/SignInPage';
 import PerfilPage from './pages/PerfilPage';
 import ChatPage from './pages/ChatPage';
-import ReactNotification from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
-
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
 import 'bulma/css/bulma.min.css';
 import ExperieneDetail from './pages/ExperienceDetail';
 
 function App() {
-
   /*const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')))
 
   useEffect(() => {
@@ -40,7 +37,6 @@ function App() {
     <div className="app-container">
       <ReactNotification />
       <React.StrictMode>
-
         <Navigation></Navigation>
 
         <Routes>
@@ -57,13 +53,11 @@ function App() {
           <Route path="home" element={<LandingPage />} />
           <Route path="SignIn" element={<SignInPage />} />
           <Route path="*" element={<NotFound />} />
-
         </Routes>
-
-
       </React.StrictMode>
     </div>
   );
 }
 
 export default App;
+
