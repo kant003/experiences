@@ -31,7 +31,6 @@ REACT_APP_CONFIRMATION_EMAIL_REDIRECT=http://localhost:3000
 
 
 ## Install
-
 ### `npm install`
 
 
@@ -66,3 +65,24 @@ REACT_APP_CONFIRMATION_EMAIL_REDIRECT=http://localhost:3000
 ? File build/index.html already exists. Overwrite? No
 
 ### `firebase deploy`
+
+### BLOCKCHAIN
+Hardhat para el manejo de los contratos
+Ethers para el puente React -> Blockchain
+
+En contracts está el contrato de Kenk, token simple para el 
+hackathon que unicamente mintea tokens en cuanto se le indica
+una transaccion al método giveTokens con el address y la cantidad
+que se le pase por parametro, esto solo es así en entorno de pruebas.
+
+Abrir una blockchain local para deployar y testear el contrato
+
+`npx hardhat node`
+
+Compilar el contrato
+
+`npx hardhat compile`
+
+Deployar el contrato al localhost
+
+`npx hardhat run scripts/deploy.js --network localhost`
