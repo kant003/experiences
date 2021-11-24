@@ -11,18 +11,16 @@ import {notify} from '../services/Utils';
 import {getUserRef} from '../services/experiencesFirestore';
 import {onSnapshot} from '@firebase/firestore';
 
-function LandingPage() {
+function LandingPage({usingEthereum}) {
   const [user, setUser] = useState(null);
   const [keyword] = useState('');
   const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-  const [usingEthereum, setUsingEthereum] = useState(false);
   const {loading, experiences} = useExperiences({keyword, uid: authUser.uid});
   const {loadingBanner, banners} = useBanners();
   let navigate = useNavigate();
 
   useEffect(() => {
     const unsub = onSnapshot(getUserRef(authUser.uid), u => setUser(u.data()));
-    if (typeof window.ethereum !== 'undefined') setUsingEthereum(true);
 
     return () => unsub();
   }, [keyword, authUser.uid]);
@@ -56,4 +54,3 @@ function LandingPage() {
   );
 }
 export default LandingPage;
-

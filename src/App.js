@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 
 import './App.css';
@@ -18,26 +18,17 @@ import 'bulma/css/bulma.min.css';
 import ExperieneDetail from './pages/ExperienceDetail';
 
 function App() {
-  /*const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem('authUser')))
+  const [usingEthereum, setUsingEthereum] = useState(false);
 
   useEffect(() => {
-    onAuthStateChanged(getAuth(), user => {
-      if (user) {
-        //const uid = user.uid;
-        setAuthUser(user)
-      } else {
-        console.log('desloguado en nav')
-        setAuthUser(null)
-      }
-    });
-
-  }, [])*/
+    if (typeof window.ethereum !== 'undefined') setUsingEthereum(true);
+  }, []);
 
   return (
     <div className="app-container">
       <ReactNotification />
       <React.StrictMode>
-        <Navigation></Navigation>
+        <Navigation usingEthereum={usingEthereum}></Navigation>
 
         <Routes>
           {/* <Route path="/" element={<Navigate to={'/home/' + authUser.uid} />} /> */}
@@ -50,7 +41,7 @@ function App() {
           <Route path="users" element={<UsersPage />} />
           <Route path="users/:uid" element={<PerfilPage />} />
           <Route path="chat/:uid1/:uid2" element={<ChatPage />} />
-          <Route path="home" element={<LandingPage />} />
+          <Route path="home" element={<LandingPage usingEthereum={usingEthereum} />} />
           <Route path="SignIn" element={<SignInPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
