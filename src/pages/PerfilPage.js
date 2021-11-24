@@ -1,16 +1,15 @@
-import { useParams } from 'react-router';
-import { useState, useEffect } from 'react';
-import { getUser } from "../services/usersFirestore";
+import {useParams} from 'react-router';
+import {useState, useEffect} from 'react';
+import {getUser} from '../services/usersFirestore';
 import User from '../components/User';
 
 function PerfilPage() {
-  const [user, setUser] = useState(null)
-  const { uid } = useParams();
+  const [user, setUser] = useState(null);
+  const {uid} = useParams();
 
   useEffect(() => {
-    getUser(uid).then(u => setUser(u.data()))
-  }, [uid])
-
+    getUser(uid).then(u => setUser(u.data()));
+  }, [uid]);
 
   return (
     <>
@@ -20,3 +19,4 @@ function PerfilPage() {
   );
 }
 export default PerfilPage;
+

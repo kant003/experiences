@@ -1,37 +1,37 @@
-import { useState, useEffect } from 'react';
-import { getUserRef } from "../services/experiencesFirestore";
 import Followers from '../components/Followers';
 import Following from '../components/Following';
-import { onSnapshot } from '@firebase/firestore';
 import Experiences from '../components/Experiences';
 import Search from '../components/Search';
-import { useExperiences } from '../hooks/useExperiences';
-import { useNavigate } from "react-router";
 import Banners from '../components/Banners';
-import { useBanners } from '../hooks/useBanners';
-import { notify } from '../services/Utils';
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router';
+import {useExperiences} from '../hooks/useExperiences';
+import {useBanners} from '../hooks/useBanners';
+import {notify} from '../services/Utils';
+import {getUserRef} from '../services/experiencesFirestore';
+import {onSnapshot} from '@firebase/firestore';
 
 function LandingPage() {
-  const [user, setUser] = useState(null)
-  const [keyword] = useState('')
-  //const { uid } = useParams();
-  const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
-  const { loading, experiences } = useExperiences({ keyword, uid: authUser.uid })
-  const { loadingBanner, banners } = useBanners()
+  const [user, setUser] = useState(null);
+  const [keyword] = useState('');
+  const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+  const [usingEthereum, setUsingEthereum] = useState(false);
+  const {loading, experiences} = useExperiences({keyword, uid: authUser.uid});
+  const {loadingBanner, banners} = useBanners();
   let navigate = useNavigate();
 
   useEffect(() => {
-
     const unsub = onSnapshot(getUserRef(authUser.uid), u => setUser(u.data()));
+    if (typeof window.ethereum !== 'undefined') setUsingEthereum(true);
 
     return () => unsub();
-  }, [keyword, authUser.uid])
+  }, [keyword, authUser.uid]);
 
-  const handleSubmit = ({ keyword }) => {
-    navigate(`/experiences/${keyword}`)
-    notify('Buscando...')
-    console.log('desde padre', keyword)
-  }
+  const handleSubmit = ({keyword}) => {
+    navigate(`/experiences/${keyword}`);
+    notify('Buscando...');
+    console.log('desde padre', keyword);
+  };
 
   return (
     <>
@@ -41,7 +41,6 @@ function LandingPage() {
           <h2>Encuenta personas con la misma enfermedad que tu</h2>
           <Search onSubmit={handleSubmit} />
           {loading ? <div>Cargando</div> : <Experiences experiences={experiences} />}
-
         </div>
         <div className="column is-3">
           <h2 className="title">Seguidores:</h2>
@@ -50,9 +49,11 @@ function LandingPage() {
           <Following uid={authUser.uid} userMap={user && user.following}></Following>
           <h2 className="title">Banners:</h2>
           {loadingBanner && <Banners banners={banners}></Banners>}
+          {usingEthereum && <h2 className="subtitle">Estas usando una wallet de ethereum</h2>}
         </div>
       </div>
     </>
   );
 }
 export default LandingPage;
+
