@@ -17,7 +17,8 @@ export default function Form({ id, experience }) {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [tags, setTags] = useState(['huesos', 'piel']);
 
-    const [system, setSystem] = useState(s1);
+    const [systemImg, setSystemImg] = useState(s1);
+    const [systemName, setSystemName] = useState(s1);
     const [area, setArea] = useState(null);
 
 
@@ -25,6 +26,8 @@ export default function Form({ id, experience }) {
         data.tags = tags
         const authUser = await JSON.parse(localStorage.getItem('authUser'))
         data.userRef = getUserRef(authUser.uid)
+        data.system = systemName
+        data.area = area
         if (id) await updateExperience(id, data)
         else await addExperience(data)
         reset();
@@ -49,13 +52,13 @@ export default function Form({ id, experience }) {
         e.preventDefault();
         console.log('aa', e.target.value)
         switch (e.target.value) {
-            case 's1': setSystem(s1); break;
-            case 's2': setSystem(s2); break;
-            case 's3': setSystem(s3); break;
-            case 's4': setSystem(s4); break;
-            case 's5': setSystem(s5); break;
-            case 's6': setSystem(s6); break;
-            default: setSystem(s1); break
+            case 's1': setSystemImg(s1); setSystemName('Aparato cirtulatorio'); break;
+            case 's2': setSystemImg(s2); setSystemName('Sistema nervioso'); break;
+            case 's3': setSystemImg(s3); setSystemName('Sistema esquelético'); break;
+            case 's4': setSystemImg(s4); setSystemName('Aparato respiratorio'); break;
+            case 's5': setSystemImg(s5); setSystemName('Sistema digestivo'); break;
+            case 's6': setSystemImg(s6); setSystemName('Sistema muscular'); break;
+            default: setSystemImg(s1); setSystemName('Aparato cirtulatorio'); break
         }
     }
 
@@ -66,8 +69,8 @@ export default function Form({ id, experience }) {
             case 'c': setArea('cabeza'); break;
             case 'es': setArea('extremidades superiores'); break;
             case 'ts': setArea('tronco superior'); break;
-            case 'tm': setArea('tronco inferior'); break;
-            case 'ti': setArea('tronco medio'); break;
+            case 'tm': setArea('tronco medio'); break;
+            case 'ti': setArea('tronco inferior'); break;
             case 'ei': setArea('extremidades inferior'); break;
             default: setArea('otro');
         }
@@ -114,7 +117,7 @@ export default function Form({ id, experience }) {
                 <area onClick={(e) => onAreaChange(e,'ei')} target="" alt="extremidadInfA" title="extremidadInfA" href="#" coords="54,274,66,458,54,483,97,499,102,433,103,287" shape="poly" />
                 <area onClick={(e) => onAreaChange(e,'ei')} target="" alt="extremidadInfB" title="extremidadInfB" href="#" coords="105,284,154,273,136,455,150,485,107,496" shape="poly" />
             </map>
-            <img src={system} alt='s1' width="25%" usemap="#image-map" />
+            <img src={systemImg} alt='s1' width="25%" usemap="#image-map" />
 
 
             <div className="field">
