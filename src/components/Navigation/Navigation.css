@@ -1,0 +1,35 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  justify-content: space-between;
+  font-size: 1.25em;
+  background-color: #D2D7EB;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin-bottom: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-element {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  padding: 5px;
+  margin-left: 2px;
+  color: #000;
+  transition: 0.5s;
+  border-radius: 5%;
+}
+
+.center-elements {
+  font-size: 1.35em;
+}
+
+.nav-item:hover {
+  background-color: #B9C3F1;
+}
+

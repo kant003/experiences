@@ -25,28 +25,28 @@ function App() {
   }, []);
 
   return (
-    <div className="app-container">
-      <ReactNotification />
-      <React.StrictMode>
-        <Navigation usingEthereum={usingEthereum}></Navigation>
-
-        <Routes>
-          {/* <Route path="/" element={<Navigate to={'/home/' + authUser.uid} />} /> */}
-          <Route path="/" element={<SignInPage />} />
-          <Route path="experiences/" element={<ExperiencesPage />} />
-          <Route path="experiences/:search" element={<ExperiencesPage />} />
-          <Route path="experience/:id" element={<ExperieneDetail />} />
-          <Route path="addExperience" element={<AddExperiencePage />} />
-          <Route path="addExperience/:id" element={<AddExperiencePage />} />
-          <Route path="users" element={<UsersPage />} />
-          <Route path="users/:uid" element={<PerfilPage />} />
-          <Route path="chat/:uid1/:uid2" element={<ChatPage />} />
-          <Route path="home" element={<LandingPage usingEthereum={usingEthereum} />} />
-          <Route path="SignIn" element={<SignInPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </React.StrictMode>
-    </div>
+    <>
+      <Navigation usingEthereum={usingEthereum} />
+      <div className="app-container">
+        <ReactNotification />
+        <React.StrictMode>
+          <Routes>
+            <Route path="/" element={<SignInPage />} />
+            <Route path="experiences/" element={<ExperiencesPage />} />
+            <Route path="experiences/:search" element={<ExperiencesPage />} />
+            <Route path="experience/:id" element={<ExperieneDetail />} />
+            <Route path="addExperience" element={<AddExperiencePage />} />
+            <Route path="addExperience/:id" element={<AddExperiencePage />} />
+            <Route path="users" element={<UsersPage />} />
+            <Route path="users/:uid" element={<PerfilPage />} />
+            <Route path="chat/:uid1/:uid2" element={<ChatPage />} />
+            <Route path="home" element={<LandingPage usingEthereum={usingEthereum} />} />
+            <Route path="SignIn" element={<SignInPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </React.StrictMode>
+      </div>
+      </>
   );
 }
 
