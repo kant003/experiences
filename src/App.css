@@ -10,6 +10,7 @@ body{
     margin-bottom: 1rem;
     min-width: 50%;
     padding: 2rem;
+    margin:2rem;
 }
 
 .card>.card-content>.content>.buttons{

@@ -6,7 +6,6 @@ import User from './User';
 import { addCalification, getCalification, getCalificationsByIdExperience } from "../services/calificationsFirestore";
 import { onSnapshot } from '@firebase/firestore';
 import { notify, notifyError } from '../services/Utils';
-import { useNavigate } from "react-router";
 import { faComments, faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -16,7 +15,6 @@ export default function Experience({ experience }) {
     const [star, setStar] = useState(null)
     const [starSum, setStarSum] = useState(0)
 
-    let navigate = useNavigate();
 
     useEffect(() => {
 
@@ -85,7 +83,7 @@ export default function Experience({ experience }) {
                         
                         
                     {isMyExperience() && <Link className="link is-link is-light" to={'/addExperience/' + experience.id}><FontAwesomeIcon icon={faEdit} />  Editar</Link>}
-                    {isMyExperience() && <a className=" is-link  is-text" onClick={e => removeExperience(experience.id)}><FontAwesomeIcon icon={faTrashAlt} /> Eliminar</a>}
+                    {isMyExperience() && <a href="delete" className=" is-link  is-text" onClick={e => removeExperience(experience.id)}><FontAwesomeIcon icon={faTrashAlt} /> Eliminar</a>}
                     
                 </div>
 

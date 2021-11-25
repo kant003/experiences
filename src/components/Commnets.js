@@ -51,6 +51,8 @@ function Comments({ idExp, authUser }) {
                             <span className="title is-6">
                                 {comment.userDisplayName}
                             </span>
+                            <button onClick={(e) => handleRemove(e, comment.id)} className="delete"></button>
+
                             &nbsp;
                             dice:
                         </div>
