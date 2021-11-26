@@ -33,7 +33,6 @@ function AddExperience() {
     <>
           {titles()}
           <Form id={id} experience={experience}></Form>
-        
     </>
   );
 }

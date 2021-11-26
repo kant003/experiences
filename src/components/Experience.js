@@ -63,6 +63,9 @@ export default function Experience({ experience }) {
                 <div className="content">
                     <p className="title is-4">{experience.title}</p>
                     <div>{experience.text}</div>
+                    <div>
+                    {experience.img && <img src={experience.img} alt={experience.title} /> }
+                    </div>
                     <p className="subtitle is-6 is-italic has-text-right">
                         {experience.createdAt && <ReactTimeAgo date={experience.createdAt.toDate()} locale="es-ES" timeStyle="twitter"/>}</p>
                 </div>

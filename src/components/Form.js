@@ -8,6 +8,7 @@ import s4 from '../assets/images/s4.png'; // Tell webpack this JS file uses this
 import s5 from '../assets/images/s5.png'; // Tell webpack this JS file uses this image
 import s6 from '../assets/images/s6.png'; // Tell webpack this JS file uses this image
 import { notify, notifyError } from '../services/Utils';
+import { saveFile, uploadFile } from "../services/filestorage";
 
 
 // https://react-hook-form.com/get-started
@@ -15,19 +16,22 @@ import { notify, notifyError } from '../services/Utils';
 // TOD: poner los tags en un componente aparte
 
 export default function Form({ id, experience }) {
-    const defaultValues= {
-        title: experience &&experience.title ,
-     }
+    const defaultValues = {
+        title: experience && experience.title,
+    }
 
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm(
-        
+
     );
 
     const [tags, setTags] = useState(['huesos', 'piel']);
+    const [progress, setProgress] = useState(null);
+    const [image, setImage] = useState('');
 
     const [systemImg, setSystemImg] = useState(s1);
     const [systemName, setSystemName] = useState(s1);
     const [area, setArea] = useState(null);
+    const [step, setStep] = useState(0);
 
     const [text, setText] = useState('');
 
@@ -59,6 +63,7 @@ export default function Form({ id, experience }) {
         data.userRef = getUserRef(authUser.uid)
         data.systemImg = systemImg
         data.systemName = systemName
+        data.img = image
         data.area = area
         try {
             if (id) await updateExperience(id, data)
@@ -88,19 +93,19 @@ export default function Form({ id, experience }) {
 
 
     const addTagList = e => {
-        e.preventDefault(); 
+        e.preventDefault();
 
-        const myUniqueArray = [...new Set([...tags,text])]; // myArray = [...new Set(myArray)];
+        const myUniqueArray = [...new Set([...tags, text])]; // myArray = [...new Set(myArray)];
         setText('')
         setTags(myUniqueArray)
     }
 
     const formTag =
-    <div>
+        <div>
             <label>
                 <input value={text} placeholder="nombre del tag" onChange={(e) => setText(e.target.value)} />
             </label>
-            <input type="submit" value="Añade" onClick={ e => addTagList(e) }/>
+            <input type="submit" value="Añade" onClick={e => addTagList(e)} />
         </div>
 
 
@@ -133,10 +138,40 @@ export default function Form({ id, experience }) {
         }
     }
 
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            {experience && experience.title}
-            {/* register your input into the hook by invoking the "register" function */}
+    const setUploading = (progress) => {
+        console.log('uploading', progress)
+        if (progress.isUploading) {
+            setProgress(progress.progress)
+        } else {
+            setProgress(null)
+            setImage(progress.uploadURL)
+        }
+    }
+
+
+    function onSubmitFile(e) {
+        console.log(e[0])
+        uploadFile(e[0], setUploading, 0)
+        /*const newIdJustification = this.justificationService.generateId();
+    
+        const imgRef = ref(this.storage, this.data.idEnrollment + '/' + newIdJustification);
+        const uploadTask = uploadBytesResumable(imgRef, this.form.value.photo)
+    
+        uploadTask.on('state_changed',
+          next => {
+            var progress = (next.bytesTransferred / next.totalBytes) * 100;
+            this.progressValue = Math.round(progress);
+          },
+          error => this.snackBarService.error('Error al subir la foto:' + error, 'Cerrar'),
+          () => {
+            this.saveJustification(newIdJustification);
+            this.dialogRef.close();
+          }
+        )*/
+    }
+
+    const step0 = () => 
+        <>
             <div className="field">
                 <label className="label">Titulo</label>
                 <div className="control">
@@ -146,6 +181,22 @@ export default function Form({ id, experience }) {
             </div>
 
             <div className="field">
+                <label className="label">Cuéntanos tu experiencia</label>
+                <div className="control">
+                    <textarea className="textarea" {...register("text")} name="text" placeholder="Textarea"></textarea>
+                </div>
+            </div>
+
+            <div className="field is-grouped is-grouped-multiline">
+                <label className="label">Tags</label>
+                {listTags}
+                {formTag}
+            </div>
+        </>
+    
+    const step1 = () => 
+        <>
+        <div className="field">
                 <label className="label">Tipo de operación</label>
                 <div className="control">
                     <div className="select">
@@ -175,16 +226,17 @@ export default function Form({ id, experience }) {
                 <area onClick={(e) => onAreaChange(e, 'ei')} target="" alt="extremidadInfB" title="extremidadInfB" href="#" coords="105,284,154,273,136,455,150,485,107,496" shape="poly" />
             </map>
             <img src={systemImg} alt='s1' width="25%" usemap="#image-map" />
-
-
-            <div className="field">
-                <label className="label">Cuéntanos tu experiencia</label>
-                <div className="control">
-                    <textarea className="textarea" {...register("text")} name="text" placeholder="Textarea"></textarea>
-                </div>
-            </div>
-
-            <div className="field">
+        </>
+    
+    const step2 = () => 
+        <>
+        <label className="label">Selecciona la imagen a subir</label>
+        <input id="uploadBtn" type="file" class="upload" onChange={e => onSubmitFile(e.target.files)} /> {progress}
+        </>
+    
+    const step3 = () => 
+        <>
+        <div className="field">
                 <label className="label">Aceptas los terminos y condiciones</label>
 
                 <div className="control">
@@ -199,11 +251,8 @@ export default function Form({ id, experience }) {
                 </div>
             </div>
 
-            <div className="field is-grouped is-grouped-multiline">
-                <label className="label">Tags</label>
-                {listTags}
-                {formTag}
-            </div>
+            
+
 
             <div className="field is-grouped">
                 <div className="control">
@@ -213,6 +262,34 @@ export default function Form({ id, experience }) {
                     <button className="button is-link is-light" onClick={() => reset()} >Cancelar</button>
                 </div>
             </div>
+        </>
+
+    
+    const getStyleStep = (val) => {
+        if(val === step) return 'is-active'
+        else return ''
+    }
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div class="tabs is-large">
+                <ul>
+                    <li onClick={() => setStep(0)} className={getStyleStep(0)}> <a>Paso 1</a></li>
+                    <li onClick={() => setStep(1)} className={getStyleStep(1)}> <a>Paso 2</a></li>
+                    <li onClick={() => setStep(2)} className={getStyleStep(2)}> <a>Paso 3</a></li>
+                    <li onClick={() => setStep(3)} className={getStyleStep(3)}> <a>Paso 4</a></li>
+                </ul>
+            </div>
+
+            {step === 0 && step0()}
+            {step === 1 && step1()}
+            {step === 2 && step2()}
+            {step === 3 && step3()}
+
+            <hr/>
+
+            {step>0 && <button onClick={() => setStep(step-1)}  className="button is-primary is-inverted">Anterior</button> }
+            {step<3 && <button onClick={() => setStep(step+1)}  className="button is-primary is-inverted">Siguiente</button> }
 
         </form>
     )
