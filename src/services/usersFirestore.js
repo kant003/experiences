@@ -20,7 +20,7 @@ async function setUser(user) {
     uid: user.uid,
     createdAt: serverTimestamp(), //TODO: esto cambia cada vez que se loguea, corregir
     roles: {},
-  });
+  },{ merge: true });
 
 }
 const followUser = async (uid, userRef, value) => await updateDoc(doc(db, USERS, uid), { [`followers.${userRef}`]: value });

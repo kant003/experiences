@@ -1,6 +1,5 @@
 import { getFirestore, query, collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc, serverTimestamp, where, orderBy, limit } from 'firebase/firestore';
 import { app } from './auth';
-
 const EXPERIENCES = 'experiences'
 const USERS = 'users'
 
