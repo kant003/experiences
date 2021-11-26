@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Routes, Route} from 'react-router-dom';
-
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import NotFound from './components/NotFound';
 import Navigation from './components/Navigation';
@@ -12,24 +10,22 @@ import SignInPage from './pages/SignInPage';
 import PerfilPage from './pages/PerfilPage';
 import ChatPage from './pages/ChatPage';
 import ReactNotification from 'react-notifications-component';
-import 'react-notifications-component/dist/theme.css';
-
-import 'bulma/css/bulma.min.css';
 import ExperieneDetail from './pages/ExperienceDetail';
+import 'react-notifications-component/dist/theme.css';
+import './App.css';
+import 'bulma/css/bulma.min.css';
 
 function App() {
-  const [usingEthereum, setUsingEthereum] = useState(false);
-
-  useEffect(() => {
-    if (typeof window.ethereum !== 'undefined') setUsingEthereum(true);
-  }, []);
 
   return (
     <>
-      <Navigation usingEthereum={usingEthereum} />
+      {/* TODO: No mostrar navbar si el usuario no está logueado */}
+      <Navigation />
       <div className="app-container">
         <ReactNotification />
         <React.StrictMode>
+          {/* TODO: Arreglar routing, de cara a que si el usuario no esta logueado, 
+          lo redireccione siempre a 'login'*/}
           <Routes>
             <Route path="/" element={<SignInPage />} />
             <Route path="experiences/" element={<ExperiencesPage />} />
@@ -40,7 +36,7 @@ function App() {
             <Route path="users" element={<UsersPage />} />
             <Route path="users/:uid" element={<PerfilPage />} />
             <Route path="chat/:uid1/:uid2" element={<ChatPage />} />
-            <Route path="home" element={<LandingPage usingEthereum={usingEthereum} />} />
+            <Route path="home" element={<LandingPage />} />
             <Route path="login" element={<SignInPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

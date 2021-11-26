@@ -1,0 +1,20 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 80vh;
+}
+
+.login-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
