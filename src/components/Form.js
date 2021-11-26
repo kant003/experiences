@@ -231,7 +231,7 @@ export default function Form({ id, experience }) {
     const step2 = () => 
         <>
         <label className="label">Selecciona la imagen a subir</label>
-        <input id="uploadBtn" type="file" class="upload" onChange={e => onSubmitFile(e.target.files)} /> {progress}
+        <input id="uploadBtn" type="file" className="upload" onChange={e => onSubmitFile(e.target.files)} /> {progress}
         </>
     
     const step3 = () => 
@@ -272,7 +272,7 @@ export default function Form({ id, experience }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div class="tabs is-large">
+            <div className="tabs is-large">
                 <ul>
                     <li onClick={() => setStep(0)} className={getStyleStep(0)}> <a>Paso 1</a></li>
                     <li onClick={() => setStep(1)} className={getStyleStep(1)}> <a>Paso 2</a></li>
