@@ -13,7 +13,6 @@ const Navigation = () => {
     onAuthStateChanged(getAuth(), user => {
       if (user) {
         setUser(user);
-        navigate('home')
       } else {
         setUser(null);
         navigate('login');

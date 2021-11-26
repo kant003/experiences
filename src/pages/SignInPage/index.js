@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { doSignInWithGoogle } from '../../services/auth';
 import { setUser } from '../../services/usersFirestore';
 import Google from '../../components/Logos/Google';
 import logo from '../../assets/images/logo-w.png';
 import './SignInPage.css';
+import { useNavigate } from 'react-router';
 
 /**
   * TODO: Hay que forzar que cuando el usuario esté 
@@ -11,6 +12,8 @@ import './SignInPage.css';
 */
 const SignInPage = () => {
   const [error, setError] = useState();
+  const [user, setLocalUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+  const navigate = useNavigate();
 
   const handleOnClick = (event) => {
     event.preventDefault();
@@ -18,6 +21,7 @@ const SignInPage = () => {
       .then(socialAuthUser => {
         const user = socialAuthUser.user;
         console.log('ok login:', user);
+        setLocalUser(user);
         return setUser(socialAuthUser.user);
       })
       .catch(error => {
@@ -26,6 +30,10 @@ const SignInPage = () => {
         setError(error);
       });
   };
+
+  useEffect(() => {
+    if (user) navigate("/home");
+  }, [user])
 
   return (
     <>

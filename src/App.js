@@ -9,9 +9,7 @@ import UsersPage from './pages/UsersPage';
 import SignInPage from './pages/SignInPage';
 import PerfilPage from './pages/PerfilPage';
 import ChatPage from './pages/ChatPage';
-import ReactNotification from 'react-notifications-component';
-import ExperieneDetail from './pages/ExperienceDetail';
-import Private from './components/Private';
+import ReactNotification from 'react-notifications-component'; import ExperieneDetail from './pages/ExperienceDetail'; import Private from './components/Private';
 import 'react-notifications-component/dist/theme.css';
 import './App.css';
 import 'bulma/css/bulma.min.css';
@@ -21,6 +19,7 @@ function App() {
 
   return (
     <>
+      {/* TODO: BUG, Si no refrescas la página, no aparece la navbar */}
       {user && <Navigation />}
       <div className="app-container">
         <ReactNotification />
