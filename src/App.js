@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import NotFound from './components/NotFound';
@@ -11,34 +11,77 @@ import PerfilPage from './pages/PerfilPage';
 import ChatPage from './pages/ChatPage';
 import ReactNotification from 'react-notifications-component';
 import ExperieneDetail from './pages/ExperienceDetail';
+import Private from './components/Private';
 import 'react-notifications-component/dist/theme.css';
 import './App.css';
 import 'bulma/css/bulma.min.css';
 
 function App() {
+  const [user, _] = useState(JSON.parse(localStorage.getItem('authUser')));
 
   return (
     <>
-      {/* TODO: No mostrar navbar si el usuario no está logueado */}
-      <Navigation />
+      {user && <Navigation />}
       <div className="app-container">
         <ReactNotification />
         <React.StrictMode>
-          {/* TODO: Arreglar routing, de cara a que si el usuario no esta logueado, 
-          lo redireccione siempre a 'login'*/}
           <Routes>
-            <Route path="/" element={<SignInPage />} />
-            <Route path="experiences/" element={<ExperiencesPage />} />
-            <Route path="experiences/:search" element={<ExperiencesPage />} />
-            <Route path="experience/:id" element={<ExperieneDetail />} />
-            <Route path="addExperience" element={<AddExperiencePage />} />
-            <Route path="addExperience/:id" element={<AddExperiencePage />} />
-            <Route path="users" element={<UsersPage />} />
-            <Route path="users/:uid" element={<PerfilPage />} />
-            <Route path="chat/:uid1/:uid2" element={<ChatPage />} />
-            <Route path="home" element={<LandingPage />} />
+            <Route path="/" element={
+              <Private>
+                <SignInPage />
+              </Private>
+            } />
+            <Route path="experiences/" element={
+              <Private>
+                <ExperiencesPage />
+              </Private>
+            } />
+            <Route path="experiences/:search" element={
+              <Private>
+                <ExperiencesPage />
+              </Private>
+            } />
+            <Route path="experience/:id" element={
+              <Private>
+                <ExperieneDetail />
+              </Private>
+            } />
+            <Route path="addExperience" element={
+              <Private>
+                <AddExperiencePage />
+              </Private>
+            } />
+            <Route path="addExperience/:id" element={
+              <Private>
+                <AddExperiencePage />
+              </Private>
+            } />
+            <Route path="users" element={
+              <Private>
+                <UsersPage />
+              </Private>
+            } />
+            <Route path="users/:uid" element={
+              <Private>
+                <PerfilPage />
+              </Private>
+            } />
+            <Route path="chat/:uid1/:uid2" element={
+              <Private>
+                <ChatPage />
+              </Private>
+            } />
+            <Route path="home" element={
+              <Private>
+                <LandingPage />
+              </Private>
+            } />
             <Route path="login" element={<SignInPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={
+              <Private>
+                <NotFound />
+              </Private>
+            } />
           </Routes>
         </React.StrictMode>
       </div>

@@ -13,8 +13,8 @@ const Navigation = () => {
     onAuthStateChanged(getAuth(), user => {
       if (user) {
         setUser(user);
+        navigate('home')
       } else {
-        console.log('desloguado en nav');
         setUser(null);
         navigate('login');
       }
