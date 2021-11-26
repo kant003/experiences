@@ -152,9 +152,10 @@ export default function Form({ id, experience }) {
 
 
     function onSubmitFile(e) {
+        
         e.preventDefault();
-        console.log(e[0])
-        uploadFile(e[0], setUploading, 0)
+        console.log(e.target.files[0])
+        uploadFile(e.target.files[0], setUploading, 0)
         /*const newIdJustification = this.justificationService.generateId();
     
         const imgRef = ref(this.storage, this.data.idEnrollment + '/' + newIdJustification);
@@ -251,7 +252,7 @@ export default function Form({ id, experience }) {
     const step2 = () =>
         <>
             <label className="label">Selecciona la imagen a subir</label>
-            <input id="uploadBtn" type="file" className="upload" onChange={e => onSubmitFile(e.target.files)} /> {progress}
+            <input id="uploadBtn" type="file" className="upload" onChange={e => onSubmitFile(e)} /> {progress}
         </>
 
     const step3 = () =>
