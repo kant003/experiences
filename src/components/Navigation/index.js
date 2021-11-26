@@ -6,7 +6,7 @@ import { getTokenBalance, parseTokens } from '../../services/blockchain.js'; imp
 
 const Navigation = ({ usingEthereum }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-  const [tokens, setTokens] = useState();
+  const [/*tokens, */setTokens] = useState();
 
   let navigate = useNavigate();
 

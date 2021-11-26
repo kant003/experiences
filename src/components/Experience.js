@@ -8,6 +8,7 @@ import { onSnapshot } from '@firebase/firestore';
 import { notify, notifyError } from '../services/Utils';
 import { faComments, faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactTimeAgo from 'react-time-ago'
 
 export default function Experience({ experience }) {
     const [user, setUser] = useState(null)
@@ -62,7 +63,11 @@ export default function Experience({ experience }) {
                 <div className="content">
                     <p className="title is-4">{experience.title}</p>
                     <div>{experience.text}</div>
-                    <p className="subtitle is-6 is-italic has-text-right">{experience.createdAt && experience.createdAt.toDate().toDateString()}</p>
+                    <p className="subtitle is-6 is-italic has-text-right">
+                        {experience.createdAt && <ReactTimeAgo date={experience.createdAt.toDate()} locale="es-ES" timeStyle="twitter"/>}</p>
+                </div>
+                <div className="content">
+                    <div className="tags">{experience.systemName} Zona: {experience.area}</div>
                 </div>
                 <div className="content">
                     <div className="tags">{tagList()}</div>

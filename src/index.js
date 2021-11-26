@@ -5,7 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter } from "react-router-dom";
+import TimeAgo from 'javascript-time-ago'
 
+import es from 'javascript-time-ago/locale/es.json'
+
+TimeAgo.addDefaultLocale(es)
+TimeAgo.addLocale(es)
 
 
 /*ReactDOM.render(
