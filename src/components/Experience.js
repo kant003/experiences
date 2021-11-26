@@ -88,7 +88,7 @@ export default function Experience({ experience }) {
                         
                         
                     {isMyExperience() && <Link className="link is-link is-light" to={'/addExperience/' + experience.id}><FontAwesomeIcon icon={faEdit} />  Editar</Link>}
-                    {isMyExperience() && <a href="delete" className=" is-link  is-text" onClick={e => removeExperience(experience.id)}><FontAwesomeIcon icon={faTrashAlt} /> Eliminar</a>}
+                    {isMyExperience() && <a href="delete" className=" is-link  is-text" onClick={e => {e.preventDefault(); removeExperience(experience.id)}}><FontAwesomeIcon icon={faTrashAlt} /> Eliminar</a>}
                     
                 </div>
 

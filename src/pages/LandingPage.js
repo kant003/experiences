@@ -41,11 +41,7 @@ function LandingPage({usingEthereum}) {
           {loading ? <div>Cargando</div> : <Experiences experiences={experiences} />}
         </div>
         <div className="column is-3">
-          <h2 className="title">Seguidores:</h2>
-          <Followers uid={authUser.uid} userMap={user && user.followers}></Followers>
-          <h2 className="title">Siguiendo:</h2>
-          <Following uid={authUser.uid} userMap={user && user.following}></Following>
-          <h2 className="title">Banners:</h2>
+          
           {loadingBanner && <Banners banners={banners}></Banners>}
           {usingEthereum && <h2 className="subtitle">Estas usando una wallet de ethereum</h2>}
         </div>

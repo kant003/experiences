@@ -31,16 +31,9 @@ function AddExperience() {
 
   return (
     <>
-      <div className="columns is-variable bd-klmn-columns is-0">
-        <div className="column is-6">
           {titles()}
           <Form id={id} experience={experience}></Form>
-        </div>
-        <div className="column is-6">
-          <h1 className="title">Tus experiencias</h1>
-          {loading ? <div>Cargando...</div> : <Experiences experiences={experiences} />}
-        </div>
-      </div>
+        
     </>
   );
 }
