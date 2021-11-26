@@ -41,7 +41,7 @@ function App() {
             <Route path="users/:uid" element={<PerfilPage />} />
             <Route path="chat/:uid1/:uid2" element={<ChatPage />} />
             <Route path="home" element={<LandingPage usingEthereum={usingEthereum} />} />
-            <Route path="SignIn" element={<SignInPage />} />
+            <Route path="login" element={<SignInPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </React.StrictMode>
