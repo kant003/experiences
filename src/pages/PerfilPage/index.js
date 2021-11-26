@@ -6,7 +6,6 @@ import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import { getUser } from '../../services/usersFirestore';
 import { useOwnExperiences } from '../../hooks/useOwnExperiences';
-import "./PerfilPage.css";
 
 function PerfilPage() {
   const [user, setUser] = useState(null);
@@ -19,26 +18,11 @@ function PerfilPage() {
 
   return (
     <>
-      <div class="profile-container">
         <User user={user} />
-      </div>
-      {/*
-      <div className="columns is-variable bd-klmn-columns is-0">
-        <div className="column is-6">
-          <h1 className="title">Perfil del usuario</h1>
-          <User user={user} />
-          <h1 className="title">Tus experiencias añadidas</h1>
-          {loading ? <div>Cargando...</div> : <Experiences experiences={experiences} />}
+        <div className="profile-experiences-container">
+          <h2 className="is-size-4 has-text-weight-bold">Experiencias</h2>
+          {/** TODO: Ver experiencias en el perfil. DEPENDS: Diseño experiencias **/}
         </div>
-        <div className="column is-6">
-          <h2 className="title">Seguidores:</h2>
-          <Followers uid={uid} userMap={user && user.followers}></Followers>
-          <h2 className="title">Siguiendo:</h2>
-          <Following uid={uid} userMap={user && user.following}></Following>
-          <h2 className="title">Banners:</h2>
-        </div>
-      </div>
-      </>*/}
       </>
   );
 }

@@ -3,10 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { doSignOut } from '../../services/auth';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import navbarLogo from './logo-navbar.png';
-import "./Navigation.css";
+
 const Navigation = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-
   let navigate = useNavigate();
 
   useEffect(() => {

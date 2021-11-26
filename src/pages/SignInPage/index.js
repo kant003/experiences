@@ -3,7 +3,6 @@ import { doSignInWithGoogle } from '../../services/auth';
 import { setUser } from '../../services/usersFirestore';
 import Google from '../../components/Logos/Google';
 import logo from '../../assets/images/logo-w.png';
-import './SignInPage.css';
 import { useNavigate } from 'react-router';
 
 /**
