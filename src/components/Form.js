@@ -150,6 +150,7 @@ export default function Form({ id, experience }) {
 
 
     function onSubmitFile(e) {
+        e.preventDefault();
         console.log(e[0])
         uploadFile(e[0], setUploading, 0)
         /*const newIdJustification = this.justificationService.generateId();
@@ -288,8 +289,8 @@ export default function Form({ id, experience }) {
 
             <hr/>
 
-            {step>0 && <button onClick={() => setStep(step-1)}  className="button is-primary is-inverted">Anterior</button> }
-            {step<3 && <button onClick={() => setStep(step+1)}  className="button is-primary is-inverted">Siguiente</button> }
+            {step>0 && <button onClick={(e) => {e.preventDefault(); setStep(step-1)} }  className="button is-primary is-inverted">Anterior</button> }
+            {step<3 && <button onClick={(e) => {e.preventDefault(); setStep(step+1)} }  className="button is-primary is-inverted">Siguiente</button> }
 
         </form>
     )
