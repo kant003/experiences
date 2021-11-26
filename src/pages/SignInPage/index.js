@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { doSignInWithGoogle } from '../services/auth';
-import { setUser } from '../services/usersFirestore';
-import Google from '../components/Logos/Google';
-import logo from '../assets/images/logo-w.png';
+import { doSignInWithGoogle } from '../../services/auth';
+import { setUser } from '../../services/usersFirestore';
+import Google from '../../components/Logos/Google';
+import logo from '../../assets/images/logo-w.png';
+import './SignInPage.css';
 
 /**
   * TODO: Hay que forzar que cuando el usuario esté 
@@ -28,15 +29,13 @@ const SignInPage = () => {
 
   return (
     <>
-      <div className="is-flex is-flex-direction-column is-justify-content-space-between is-align-items-center">
+      <div className="login-container">
         <img src={logo} width={250} alt="Logo" height={250} />
         {error && <p>TODO: Notification</p>}
-        <h2 className="mt-4">¡Bienvenido a Kenko! ¡Conecta con nosotros!</h2>
-        <div className="mt-4">
-          <LoginWithGoogleButton handleOnClick={handleOnClick} />
-        </div>
-        <div className="mt-4">
+        <h1 className="login-text is-size-3">¡Bienvenido a Kenko!</h1>
+        <div className="login-buttons">
           <LoginWithEmailButton handleOnClick={() => { console.log("Funcion no disponible por el momento!") }} />
+          <LoginWithGoogleButton handleOnClick={handleOnClick} />
         </div>
       </div>
     </>
@@ -46,9 +45,9 @@ const SignInPage = () => {
 export default SignInPage;
 
 const LoginWithGoogleButton = ({ handleOnClick }) => (
-  <button type="submit" onClick={handleOnClick} class="button is-link"><Google /> Login con Google</button>
+  <button type="submit" onClick={handleOnClick} className="button mt-2 is-link"><Google /> Login con Google</button>
 )
 
 const LoginWithEmailButton = ({ handleOnClick }) => (
-  <button type="submit" onClick={handleOnClick} class="button is-success">✉️ Login con Email</button>
+  <button type="submit" onClick={handleOnClick} className="button is-success">✉️ Login con Email</button>
 )

@@ -1,6 +1,6 @@
 import { addExperience, updateExperience, getUserRef } from "../services/experiencesFirestore";
 import { useForm } from "react-hook-form";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import s1 from '../assets/images/s1.png'; // Tell webpack this JS file uses this image
 import s2 from '../assets/images/s2.png'; // Tell webpack this JS file uses this image
 import s3 from '../assets/images/s3.png'; // Tell webpack this JS file uses this image
