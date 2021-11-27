@@ -294,7 +294,7 @@ export default function Form({ id, experience }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="tabs is-large">
+            <div className="tabs">
                 <ul>
                     <li onClick={() => setStep(0)} className={getStyleStep(0)}> <a>Paso 1</a></li>
                     <li onClick={() => setStep(1)} className={getStyleStep(1)}> <a>Paso 2</a></li>
