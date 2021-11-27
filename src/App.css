@@ -49,10 +49,10 @@ align-items: center;
 nav {
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 2.5px;
   justify-content: space-between;
   font-size: 1.25em;
-  background-color: #D2D7EB;
+  background-color: #a5a5a5;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   margin-bottom: 15px;
   position: sticky;
@@ -70,7 +70,7 @@ nav {
   margin-left: 2px;
   color: #000;
   transition: 0.5s;
-  border-radius: 5%;
+  border-radius: 50%;
 }
 
 .center-elements {
@@ -78,7 +78,7 @@ nav {
 }
 
 .nav-item:hover {
-  background-color: #B9C3F1;
+  background-color: #7a7a7a;
 }
 
 .profile-container {
