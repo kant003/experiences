@@ -6,7 +6,6 @@ import Search from '../components/Search';
 import { useExperiences } from '../hooks/useExperiences';
 import { useNavigate } from "react-router";
 import { notify } from '../services/Utils';
-import { fetchIBM } from '../services/keywords';
 
 function ExperiencesPage() {
 
@@ -20,16 +19,7 @@ function ExperiencesPage() {
     notify('Buscando...')
   }
 
-  useEffect(() => {
-    fetchIBM("fractura de humero")
-      .then((resp) => resp.json())
-      .then(function (data) {
-        console.log(data);
-      })
-      .catch(error  => console.log('error',error) )
-      
-      console.log('experiencesFirestore.js')
-  }, []);
+  
 
  
 

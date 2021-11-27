@@ -246,7 +246,8 @@ export default function Form({ id, experience }) {
                 <area onClick={(e) => onAreaChange(e, 'ei')} target="" alt="extremidadInfA" title="extremidadInfA" href="#" coords="54,274,66,458,54,483,97,499,102,433,103,287" shape="poly" />
                 <area onClick={(e) => onAreaChange(e, 'ei')} target="" alt="extremidadInfB" title="extremidadInfB" href="#" coords="105,284,154,273,136,455,150,485,107,496" shape="poly" />
             </map>
-            <img src={systemImg} alt='s1' width="25%" usemap="#image-map" />
+            {/* no escales la imagen plisss*/}
+            <img src={systemImg} alt='s1'  useMap="#image-map" />
         </>
 
     const step2 = () =>
