@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
 import NotFound from './components/NotFound';
 import Navigation from './components/Navigation';
 import ExperiencesPage from './pages/ExperiencesPage';
@@ -72,7 +71,7 @@ function App() {
             } />
             <Route path="home" element={
               <Private>
-                <LandingPage />
+                <ExperiencesPage />
               </Private>
             } />
             <Route path="login" element={<SignInPage />} />

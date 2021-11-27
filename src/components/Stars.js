@@ -4,25 +4,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Stars({ star, onSubmit }) {
 
-    const onCalificate = async (e, value) => {
-        e.preventDefault()
-        onSubmit({ value })
-    }
+  const onCalificate = async (e, value) => {
+    e.preventDefault()
+    onSubmit({ value })
+  }
 
-    const divStyle = {
-        borderColor: 'black',
-    };
+  const divStyle = {
+    borderColor: 'black',
+  };
 
-    return (
-        <div>
-            {
-                [1, 2, 3, 4, 5].map(v =>
-                    <span className="has-text-warning" style={divStyle} key={v} onClick={e => onCalificate(e, v)}>
-                        {star === v ? <FontAwesomeIcon  icon={faStar} /> : <FontAwesomeIcon icon={faStarRegular} />}
-                    </span>
-                )
-            }
-        </div>
-    );
+  return (
+    <div>
+      {
+      [1, 2, 3, 4, 5].map(v =>
+        <span className="has-text-dark" style={divStyle} key={v} onClick={e => onCalificate(e, v)}>
+          {star === v ? <FontAwesomeIcon icon={faStar} /> : <FontAwesomeIcon icon={faStarRegular} />}
+        </span>
+      )
+      }
+    </div>
+  );
 }
 export default Stars;

@@ -1,6 +1,7 @@
 import ProfilePhoto from './ProfilePhoto';
 
 const UserSimple = (props) => {
+  console.log(props.user)
   return (
     <>
       <div class="profile-photo-simple">

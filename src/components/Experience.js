@@ -45,8 +45,8 @@ export default function Experience({ experience }) {
   }
 
   const isMyExperience = () => user && authUser.uid === user.uid
-
-  return (
+  /* DETAIL EXPERIENCE
+   * {/*
     <div className="card" key={experience.id} >
       <div className="card-content">
         {user && !isMyExperience() && <User mode="simple" user={user} />}
@@ -76,11 +76,33 @@ export default function Experience({ experience }) {
           <Link className=" is-link is-light" to={'/experience/' + experience.id}>
             <FontAwesomeIcon icon={faComments} />
           Ver</Link>
-          {isMyExperience() && <Link className="link is-link is-light" to={'/addExperience/' + experience.id}><FontAwesomeIcon icon={faEdit} />Editar</Link>}
-          {isMyExperience() && <a href="delete" className=" is-link  is-text" onClick={e => { e.preventDefault(); removeExperience(experience.id) }}><FontAwesomeIcon icon={faTrashAlt} /> Eliminar</a>}
         </div>
       </div>
     </div>
+      }
+  */
 
+  return (
+    <>
+      <article className="message is-link">
+        <div className="message-header">
+          <p>{experience.title}</p>
+          <button className="ml-5 button is-light">+</button>
+        </div>
+        <div className="message-body has-text-black">
+          <p>{experience.createdAt && <ReactTimeAgo date={experience.createdAt.toDate()} locale="es-ES" timeStyle="twitter" />}</p>
+          <User mode="simple" user={user} />
+          <div className="mt-3">{experience.text}</div>
+          <div class="stars is-flex is-flex-direction-row is-justify-content-center mt-3">
+            {experience.id && <Stars star={star} onSubmit={handleSubmitStarChange}> </Stars>}
+          </div>
+        </div>
+        <div class="message-body">
+          {tagList()}
+          {isMyExperience() && <Link className="link is-link is-light ml-3" to={'/addExperience/' + experience.id}><FontAwesomeIcon icon={faEdit} /></Link>}
+          {isMyExperience() && <a href="delete" className="is-link is-text ml-3" onClick={e => { e.preventDefault(); removeExperience(experience.id) }}><FontAwesomeIcon icon={faTrashAlt} /></a>}
+        </div>
+      </article>
+    </>
   )
 }

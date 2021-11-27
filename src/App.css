@@ -141,6 +141,7 @@ nav {
 .user-simple-container {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .profile-photo-simple {

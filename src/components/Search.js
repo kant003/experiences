@@ -1,20 +1,19 @@
 import { useState } from "react";
 
 function Search({ onSubmit }) {
-    const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState('')
 
-    const hanbleSubmit = (e) => {
-        e.preventDefault()
-        onSubmit({ keyword })
-        //  pushLocation(`/search/${keyword}`)
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    onSubmit({ keyword })
+  }
 
-    return (
-        <div>
-            <form onSubmit={hanbleSubmit}>
-                Buscar por tag: <input value={keyword} onChange={e => setKeyword(e.target.value)} />
-            </form>
-        </div>
-    );
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input className="input mb-5" value={keyword} onChange={e => setKeyword(e.target.value)} />
+      </form>
+    </div>
+  );
 }
 export default Search;
