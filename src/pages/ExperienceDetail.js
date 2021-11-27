@@ -4,26 +4,26 @@ import { getExperience } from "../services/experiencesFirestore";
 import Experience from '../components/Experience';
 import Comments from '../components/Commnets';
 
-function ExperieneDetail() {
+function ExperienceDetail() {
   const [authUser] = useState(JSON.parse(localStorage.getItem('authUser')))
   const [experience, setExperience] = useState(null)
   const { id } = useParams();
 
-  useEffect(() => {
+  useEffect(() => console.log(id), []);
 
+  useEffect(() => {
+    console.log(id);
     getExperience(id).then(exp => {
       setExperience({ ...exp.data(), id: exp.id })
     })
-
   }, [id])
-
 
   return (
     <>
-      {experience && <Experience experience={experience} />}
+      {experience && <Experience experience={experience} mode="detail" />}
       <div>Comentarios:</div>
       {experience && <Comments idExp={id} authUser={authUser} />}
     </>
   );
 }
-export default ExperieneDetail;
+export default ExperienceDetail;
