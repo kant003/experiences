@@ -1,3 +1,7 @@
+## Intro
+
+https://docs.google.com/presentation/d/1qjDGkk6hHi0mwG4WDEo1lv8OqR-fQQ6fReFzeKWgaCU/edit?usp=sharing
+
 ## Repo Github
 
 https://github.com/kant003/kenko
